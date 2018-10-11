@@ -1,31 +1,67 @@
 <template>
-	<div id="sidebar-nav" class="sidebar">
-			<div class="sidebar-scroll">
-				<nav>
-					<ul class="nav">
-						<li> <router-link :to="{ name: 'Dashboard' }" :class="item === 'Dashboard' ? 'active' : ''"><i class="lnr lnr-home"></i> <span>Dashboard</span></router-link></li>
-						<li><router-link :to="{ name: 'indexUser' }" :class="item === 'indexUser' ? 'active' : ''"><i class="lnr lnr-code"></i> <span>Elements</span></router-link></li>
-						<li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a></li>
-						<li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Panels</span></a></li>
-						<!-- <li @click="abc">{{item}}</li> -->
-						<li><a href="notifications.html" class=""><i class="lnr lnr-alarm"></i> <span>Notifications</span></a></li>
-						<li>
-							<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pages</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages" class="collapse ">
-								<ul class="nav">
-									<li><a href="page-profile.html" class="">Profile</a></li>
-									<li><a href="page-login.html" class="">Login</a></li>
-									<li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
-								</ul>
-							</div>
-						</li>
-						<li><a href="tables.html" class=""><i class="lnr lnr-dice"></i> <span>Tables</span></a></li>
-						<li><a href="typography.html" class=""><i class="lnr lnr-text-format"></i> <span>Typography</span></a></li>
-						<li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Icons</span></a></li>
-					</ul>
-				</nav>
-			</div>
-		</div>
+	<v-list dense>
+        <template v-for="item in items">
+          <router-link :to="{ name: item.link }" >
+            <v-layout
+              row
+              v-if="item.heading"
+              align-center
+              :key="item.heading"
+            >
+              <v-flex xs6>
+                <v-subheader v-if="item.heading">
+                  {{ item.heading }}
+                </v-subheader>
+              </v-flex>
+              <v-flex xs6 class="text-xs-center">
+                <a href="#!" class="body-2 black--text">EDIT</a>
+              </v-flex>
+            </v-layout>
+            <v-list-group
+              v-else-if="item.children"
+              v-model="item.model"
+              :key="item.text"
+              :prepend-icon="item.model ? item.icon : item['icon-alt']"
+              append-icon=""
+            >
+              <v-list-tile slot="activator">
+                <v-list-tile-content>
+                  <v-list-tile-title>
+                    {{ item.text }}
+                  </v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile
+                v-for="(child, i) in item.children"
+                :key="i"
+                @click=""
+              >
+                <v-list-tile-action v-if="child.icon">
+                  <v-icon>{{ child.icon }}</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>
+                    {{ child.text }}
+                  </v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list-group>
+
+            <v-list-tile v-else @click="" :key="item.text">
+              <v-list-tile-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ item.text }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+
+            </v-list-tile>
+          </router-link>
+        </template>
+      </v-list>
 </template>
 
 <script>
@@ -35,7 +71,32 @@ export default {
 
   data () {
     return {
-    	// item: this.$route.name
+    	items: [
+          // { icon: 'contacts', text: 'Contacts' },
+          // { icon: 'history', text: 'Frequently contacted' },
+          // { icon: 'content_copy', text: 'Duplicates' },
+          // {
+          //   icon: 'keyboard_arrow_up',
+          //   'icon-alt': 'keyboard_arrow_down',
+          //   text: 'More',
+          //   model: false,
+          //   children: [
+          //     { text: 'Import' },
+          //     { text: 'Export' },
+          //     { text: 'Print' },
+          //     { text: 'Undo changes' },
+          //     { text: 'Other contacts' }
+          //   ]
+          // },
+          // { icon: 'settings', text: 'Settings' },
+          // { icon: 'chat_bubble', text: 'Send feedback' },
+          // { icon: 'help', text: 'Help' },
+          // { icon: 'phonelink', text: 'App downloads' },
+          // { icon: 'keyboard', text: 'Go to the old version' },
+          { icon: 'home', text: 'Home', link: 'Home' },
+          { icon: 'people', text: 'Users', link: 'indexUser' },
+          
+        ]
     }
   },
   methods:{
@@ -45,9 +106,9 @@ export default {
   	// }
   },
   computed:{
-  	item(){
-  		return this.$route.name
-  	}
+  	// item(){
+  	// 	return this.$route.name
+  	// }
   }
 }
 </script>
