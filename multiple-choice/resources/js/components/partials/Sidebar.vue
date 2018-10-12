@@ -17,7 +17,7 @@
                 <a href="#!" class="body-2 black--text">EDIT</a>
               </v-flex>
             </v-layout>
-            <v-list-group
+           <!--  <v-list-group
               v-else-if="item.children"
               v-model="item.model"
               :key="item.text"
@@ -45,7 +45,7 @@
                   </v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
-            </v-list-group>
+            </v-list-group> -->
 
             <v-list-tile v-else @click="" :key="item.text">
               <v-list-tile-action>
@@ -72,27 +72,27 @@ export default {
   data () {
     return {
     	items: [
-          // { icon: 'contacts', text: 'Contacts' },
-          // { icon: 'history', text: 'Frequently contacted' },
-          // { icon: 'content_copy', text: 'Duplicates' },
-          // {
-          //   icon: 'keyboard_arrow_up',
-          //   'icon-alt': 'keyboard_arrow_down',
-          //   text: 'More',
-          //   model: false,
-          //   children: [
-          //     { text: 'Import' },
-          //     { text: 'Export' },
-          //     { text: 'Print' },
-          //     { text: 'Undo changes' },
-          //     { text: 'Other contacts' }
-          //   ]
-          // },
-          // { icon: 'settings', text: 'Settings' },
-          // { icon: 'chat_bubble', text: 'Send feedback' },
-          // { icon: 'help', text: 'Help' },
-          // { icon: 'phonelink', text: 'App downloads' },
-          // { icon: 'keyboard', text: 'Go to the old version' },
+          { icon: 'contacts', text: 'Contacts' },
+          { icon: 'history', text: 'Frequently contacted' },
+          { icon: 'content_copy', text: 'Duplicates' },
+          {
+            icon: 'keyboard_arrow_up',
+            'icon-alt': 'keyboard_arrow_down',
+            text: 'More',
+            model: false,
+            children: [
+              { text: 'Import' },
+              { text: 'Export' },
+              { text: 'Print' },
+              { text: 'Undo changes' },
+              { text: 'Other contacts' }
+            ]
+          },
+          { icon: 'settings', text: 'Settings' },
+          { icon: 'chat_bubble', text: 'Send feedback' },
+          { icon: 'help', text: 'Help' },
+          { icon: 'phonelink', text: 'App downloads' },
+          { icon: 'keyboard', text: 'Go to the old version' },
           { icon: 'home', text: 'Home', link: 'Home' },
           { icon: 'people', text: 'Users', link: 'indexUser' },
           

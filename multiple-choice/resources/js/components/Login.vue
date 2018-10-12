@@ -13,14 +13,14 @@
                   <div>
                       <v-form ref="form" @submit.prevent="submit()">
                         <v-text-field
-                          v-model="email"
+                          v-model="user.email"
                           prepend-icon="person"
 			              :rules="[rules.required, rules.email]"
 			              label="E-mail"
                         ></v-text-field>
                         <v-text-field
                           label="Enter your password"
-                          v-model="password"
+                          v-model="user.password"
                           :append-icon="e1 ? 'visibility' : 'visibility_off'"
                           :type="e1 ? 'text' : 'password'"
                           @click:append="e1 = !e1"
@@ -29,9 +29,10 @@
                         ></v-text-field>
                         <v-layout justify-space-between>
                             <v-btn type="submit">Login</v-btn>
-                            <a href="">Forgot Password</a>
+                            <a href="#" @click="test()">Forgot Password</a>
                         </v-layout>
                       </v-form>
+                      <notifications group="foo" />
                   </div>
                 </v-card-text>
               </v-card>
@@ -43,17 +44,17 @@
 </template>
 
 <script>
-
+import auth from '../auth/index.js'
 export default {
 
   name: 'Login',
 
   data () {
     return {
-    	email: '',
-    	password:'',
+    	user:{},
     	valid: false,
         e1: false,
+      token:'',  
        	rules: {
           required: value => !!value || 'Required.',
           email: value => {
@@ -66,8 +67,33 @@ export default {
   methods:{
   	submit(){
   		if (this.$refs.form.validate()) {
-  			console.log(this.user)
+  			auth.login(this.user.email,this.user.password)
+        this.token =  localStorage.getItem('access_token')
+        console.log(this.token)
+        if(this.token) {
+          this.$notify({
+            group: 'foo',
+            title: 'Important message',
+            text: 'Hello user! This is a notification!',
+            type : 'success'
+           });
+        } else {
+            this.$notify({
+            group: 'foo',
+            title: 'Important message',
+            text: 'Something error. Please try again!',
+            type : 'error'
+          });
+        }
   		}		
+  	},
+    	test(){
+    		// this.$notify({
+      //   group: 'foo',
+      //   title: 'Important message',
+      //   text: 'Hello user! This is a notification!',
+      //   type : 'error'
+      // });
   	}
   }
 }

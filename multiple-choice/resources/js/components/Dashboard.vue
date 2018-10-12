@@ -1,10 +1,13 @@
 <template>
     <div>
         <v-app id="inspire">
-
+          
           <v-navigation-drawer
             fixed
             :clipped="$vuetify.breakpoint.mdAndUp"
+            :mini-variant.sync="mini"
+            hide-overlay
+            stateless
             app
             v-model="drawer"
           >
@@ -19,9 +22,13 @@
             :clipped-left="$vuetify.breakpoint.mdAndUp"
             fixed
           >
+
             <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-              <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+              <v-toolbar-side-icon @click.stop="mini = !mini"></v-toolbar-side-icon>
               <span class="hidden-sm-and-down">Integra</span>
+             <!--  <v-btn icon  @click.stop="mini = !mini">
+              <v-icon>chevron_left</v-icon> -->
+            </v-btn>
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn icon>
@@ -30,6 +37,7 @@
             <v-btn icon>
               <v-icon>notifications</v-icon>
             </v-btn>
+
           </v-toolbar>
           <!-- end header -->
 
@@ -134,8 +142,11 @@ export default {
     return {
     	height: $(window).height(),
       hidden: 'auto',
-       dialog: false,
-        drawer: null,
+      dialog: false,
+        // drawer: null,
+      drawer: true,
+      mini: true,
+      right:null
     }
   },
   components: {
