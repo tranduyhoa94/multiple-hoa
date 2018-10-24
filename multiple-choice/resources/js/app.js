@@ -16,6 +16,13 @@ import Notifications from 'vue-notification'
 import config from './config/index.js'
 Vue.use(Notifications)
 Vue.use(VueRouter)
+// main.js
+import '@fortawesome/fontawesome-free/css/all.css' // Ensure you are using css-loader
+import Vuetify from 'vuetify'
+
+Vue.use(Vuetify, {
+ iconfont: 'fa'
+})
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

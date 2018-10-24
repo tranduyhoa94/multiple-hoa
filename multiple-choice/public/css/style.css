@@ -10,3 +10,28 @@
 .loginOverlay {
   background:rgba(33,150,243,0.3);
 }
+
+.pagination-style {
+	 display: inline-block;
+}
+
+.pagination-style  a{
+	 color: black;
+    float: left;
+    padding: 8px 15px;
+    text-decoration: none;
+}
+
+.pagination-style a:hover:not(.active) {background-color: #ddd;}
+
+.pagination-style a {
+    border: 1px solid #ddd; /* Gray */
+}
+
+.paging-bottom {
+	text-align: center;
+}
+
+.page.secondary-color {
+	background-color: #ef6c00;
+}

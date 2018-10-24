@@ -19,4 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('auth/login', 'LoginController@login');
 
-Route::resource('users', 'UserAPIController');
+Route::group(['namespace' => 'API'],function(){
+	
+	Route::resource('users', 'UserAPIController');
+
+	Route::get('program', 'UserAPIController@getProgramUser');
+});

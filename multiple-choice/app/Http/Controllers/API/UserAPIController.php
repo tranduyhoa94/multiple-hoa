@@ -126,4 +126,34 @@ class UserAPIController extends AppBaseController
 
         return $this->sendResponse($id, 'User deleted successfully');
     }
+
+    public function getProgramUser(Request $request){
+
+        $perPage = $request->input('perPage', 1);
+
+        if($request->has('sort') && $request->input('sort')){
+            $sortBy = explode('|', $request->input('sort'));
+        }else{
+            $sortBy = explode('|', 'users|lastname|asc');
+        }
+
+        $searchBy = [];
+
+        if($request->has('search') && $request->input('search')){
+            $searchValues = explode(';', $request->input('search'));
+
+            foreach ($searchValues as $val) {
+            $tmp = explode(':', $val);
+
+                if(count($tmp) > 1){
+                    $searchBy[$tmp[0]] = $tmp[1];
+                }
+            }
+
+        }
+
+        $users  = $this->userRepository->paginate($perPage);
+
+        return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
+    }
 }
