@@ -1,60 +1,79 @@
 <template>
-	<div id="sidebar-nav" class="sidebar">
-			<div class="sidebar-scroll">
-				<nav>
-					<ul class="nav">
-						<li> <router-link :to="{ name: 'Dashboard' }" :class="item === 'Dashboard' ? 'active' : ''"><i class="lnr lnr-home"></i> <span>Dashboard</span></router-link></li>
-						<li><router-link :to="{ name: 'indexUser' }" :class="item === 'indexUser' ? 'active' : ''"><i class="lnr lnr-code"></i> <span>Elements</span></router-link></li>
-						<li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a></li>
-						<li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Panels</span></a></li>
-						<!-- <li @click="abc">{{item}}</li> -->
-						<li><a href="notifications.html" class=""><i class="lnr lnr-alarm"></i> <span>Notifications</span></a></li>
-						<li>
-							<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pages</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages" class="collapse ">
-								<ul class="nav">
-									<li><a href="page-profile.html" class="">Profile</a></li>
-									<li><a href="page-login.html" class="">Login</a></li>
-									<li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
-								</ul>
-							</div>
-						</li>
-						<li><a href="tables.html" class=""><i class="lnr lnr-dice"></i> <span>Tables</span></a></li>
-						<li><a href="typography.html" class=""><i class="lnr lnr-text-format"></i> <span>Typography</span></a></li>
-						<li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Icons</span></a></li>
-					</ul>
-				</nav>
-			</div>
-		</div>
+  <v-list dense expand>
+        <template v-for="item in items">
+          <v-layout
+            row
+            v-if="item.heading"
+            align-center
+            :key="item.heading"
+          >
+          </v-layout>
+          <v-list-group
+            v-else-if="item.children"
+            v-model="item.model"
+            :key="item.text"
+            :prepend-icon="item.model ? item.icon : item['icon-alt']"
+            append-icon=""
+          >
+            <v-list-tile slot="activator" >
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ item.text }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile
+              v-for="(child, i) in item.children"
+              :key="child.text"
+              @click=""
+              :to="child.link"
+            >
+              <v-list-tile-action v-if="child.icon">
+                <v-icon color="pink">{{ child.icon }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ child.text }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list-group>
+          <v-list-tile v-else @click="" :key="item.text" :to="item.link">
+            <v-list-tile-action>
+              <v-icon color="pink">{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>
+                {{ item.text }}
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </template>
+      </v-list>
 </template>
 
 <script>
-export default {
-
-  name: 'Sidebar',
-
-  data () {
-    return {
-    	// item: this.$route.name
+  export default {
+    data() {
+      return {
+        items: [
+            {
+              icon: 'fa-caret-up',
+              'icon-alt': 'fa-caret-down',
+              text: 'Admin',
+              model: true,
+              children: [
+                { text: 'Dashboard Admin' ,link: 'users', icon: 'dashboard' },
+                { icon: 'fa-universal-access', text: 'Acl Admin', link: 'home' },
+                { icon: 'link', text: 'Links Admin', link: 'links-admin' },
+                { text: 'Users', link: 'user', icon:'people'}
+              ]
+            }
+          ]
+      }
+    },
+    name: 'Sidebar',
+    components: {
     }
-  },
-  methods:{
-  	// abc(){
-  	// 	alert(this.item)
-
-  	// }
-  },
-  computed:{
-  	item(){
-  		return this.$route.name
-  	}
   }
-}
 </script>
-
-<style lang="css" scoped>
-	.active{
-		color: white !important;
-		z-index: 1000;
-	}
-</style>

@@ -1,11 +1,17 @@
 <template>
-     <div id="wrapper">
+     <div id="app">
+      <v-app id="inspire">
         <router-view></router-view>
+      </v-app>  
     </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 
+Vue.use(Vuetify)
   export default {
     data() {
       return {
