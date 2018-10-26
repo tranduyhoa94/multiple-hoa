@@ -64,7 +64,7 @@
               model: true,
               children: [
                 { text: 'Dashboard Admin' ,link: 'users', icon: 'dashboard' },
-                { icon: 'fa-universal-access', text: 'Acl Admin', link: 'home' },
+                { icon: 'fa-universal-access', text: 'Acl Admin', link: 'slide' },
                 { icon: 'link', text: 'Links Admin', link: 'links-admin' },
                 { text: 'Users', link: 'user', icon:'people'}
               ]

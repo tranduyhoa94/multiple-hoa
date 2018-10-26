@@ -2,25 +2,34 @@
      <div id="app">
       <v-app id="inspire">
         <router-view></router-view>
-      </v-app>  
+        <loading :is-loading="isLoading"></loading>  
+      </v-app>
+      
     </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import Loading from '../components/partials/Loading.vue'
 
-Vue.use(Vuetify)
+
   export default {
     data() {
       return {
-        height: $(window).height(),
-        hidden: 'auto'
+        isLoading: false
       }
     },
+
     name: 'App',
+
     components: {
+       Loading
+    },
+
+    mounted() {
+      this.$root.$on('show', data => {
+          this.isLoading = data
+      })
     }
   }
 </script>

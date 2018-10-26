@@ -3,11 +3,11 @@
         <div class="as-body">
             <div class="as-answer-group" >
                 <div class="table-responsive">
-                <table class="table table-striped table-hover" ref="vuetable" id="program-participants-table">
+                <table class="table table-striped table-hover" ref="vuetable" id="program-participants-table" >
                 <!-- sort row -->
                 <thead>
                     <tr class="text-table-head" role="row">
-                        <th style="width: 15%;">
+                        <th style="width: 10%;">
                             <div class="caret-title"></div>
                         </th>
                         <th style="width: 20%;" @click="sortByColumn('firstname')">
@@ -61,20 +61,27 @@
                 <!-- search row -->
                 <thead>
                     <tr class="search-table-head" role="row">
-                        <th style="width: 15%;"></th>
+                        <th style="width: 10%;">
+                              <div class="form-group group-bottom">
+                                 <date-picker   :editable='false' v-model="searchColumn.from_day" lang="en" type="date" format="YYYY-MM-DD" @keyup="handleSearch()" @change="handleSearch()" width="150" placeholder=""></date-picker>
+                                <!--   <div class="form-group group-bottom">
+                                 <date-picker   :editable='false' v-model="searchColumn.from_day" lang="en" type="date" format="YYYY-MM-DD" @keyup="handleSearch()" @change="handleSearch()" width="150" placeholder=""></date-picker> -->
+                            <!-- </div>   -->
+                            </div>  
+                        </th>
                         <th style="width: 20%;">
-                          <div class="input-group input-group-sm custom-input-group">
-                            <input class="search-input-text form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.firstname" id="input-1">
+                          <div class="form-group group-bottom">
+                            <input class="form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.firstname" id="input-1">
                           </div>
                         </th>
                         <th style="width: 20%;">
-                            <div class="input-group input-group-sm custom-input-group">
-                                <input class="search-input-text form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.lastname" id="input-2">
+                            <div class="form-group group-bottom">
+                                <input class="form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.lastname" id="input-2">
                             </div>
                         </th>
                         <th style="width: 25%;">
-                            <div class="input-group input-group-sm custom-input-group">
-                                <input class="search-input-text form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.email" id="input-3">
+                           <div class="form-group group-bottom">
+                                <input class="form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.email" id="input-3">
                           </div>
                         </th>
                         <th style="width: 10%;">
@@ -109,8 +116,9 @@
                 </thead>
                 <!-- end search row -->
                 <tbody>
-                        <tr role="row" v-for="pp in participants.data" v-if="participants.data && participants.data.length">
+                        <tr role="row" v-for="(pp,index) in participants.data" v-if="participants.data && participants.data.length">
                             <td>
+                            123
                                 <!-- <div class="image-profile">
                                     <img class="custome-image" :src="'uploads/' + pp.profile_image" v-if="pp.profile_image">
                                     <img class="custome-image" src="img/profile-img.png" v-else>
@@ -132,9 +140,14 @@
                                 </div>
                             </td>
                             <td>
-                                <!-- <div class="prp-text">
-                                    {{pp.mentor_role}}
-                                </div> -->
+                    
+                                <input v-if = "pp.edit" v-model = "pp.address"
+                                  @blur= "pp.edit = false; editTodo(pp.address,pp.id)"
+                                  @keyup.enter = "pp.edit=false; editTodo()" class="form-control">
+                                <div v-else>
+                                    <strong class="primary--text"><label @click = "pp.edit = true;">  {{pp.address || 'edit'}} </label></strong>
+                                </div>
+                                
                             </td>
                             <td>
                                 <!-- <div class="prp-text">
@@ -149,7 +162,7 @@
         		</table>
                 <!-- paginator -->
                     <div class="paging">
-                    	<div class="paging-top ntf-pagination">
+                    	<div class="paging-top ntf-pagination ">
                             <span class="pr-2">Rows per page</span>
                             <select class="form-control notification-dropdown-form-control" v-model="paginator.perPage" v-on:change="changePerPage()">
                                 <option v-for="(r, key) in rowsPerPage" :value="r">
@@ -200,6 +213,9 @@
 
 <script>
 import config from '../../config/index.js'
+import DatePicker from 'vue2-datepicker'
+import moment from 'moment'
+
 export default {
 
   name: 'indexUser',
@@ -209,7 +225,7 @@ export default {
             participants: [],
 	    	rowsPerPage: [10, 20, 30, 40, 50],
 	    	paginator: {
-	                perPage: 1,
+	                perPage: 10,
 	                currentPage: 1,
 	                lastPage: 1,
 	                total: 0,
@@ -227,10 +243,16 @@ export default {
             searchColumn: {
                 firstname: '',
                 lastname: '',
-                email: ''
+                email: '',
+                from_day:''
             },
+            month:'',
+            editing:0,
     	}
   	},
+    components : {
+            DatePicker
+    },
     created () {
         this.makeSearchParams()
         this.loadData()
@@ -252,6 +274,10 @@ export default {
                 searchValues.push('email:' + this.searchColumn.email)
             }
 
+            if(_.trim(this.searchColumn.from_day)){
+                searchValues.push('from_day:' + moment(this.searchColumn.from_day, 'YYYY-MM-DD hh:mm:ss').format('YYYY-MM-DD'))
+            }
+
             this.searchBy = searchValues.join(";")
         },
 
@@ -262,7 +288,7 @@ export default {
         },
   		
   		loadData(){
-            // this.$root.$emit('show-loading', true)
+            this.$root.$emit('show', true)
             let url = config.API_URL + 'program'
 
             let params = {
@@ -277,11 +303,15 @@ export default {
             })
             .then(response => {
                 // console.log(response.data);
-                // this.$root.$emit('show-loading', false)
+                this.$root.$emit('show', false)
 
                 if(response && response.data.success){
-                    console.log(response.data.data)
+                     _.forEach(response.data.data.data, function(index,value) {
+                        // console.log(response.data.data.data[value]);
+                        response.data.data.data[value].edit = false;                
+                    });
                     this.participants = response.data.data
+                    // console.log(this.participants)
                     this.paginator.lastPage = response.data.data.last_page
                     this.paginator.from = response.data.data.from
                     this.paginator.to = response.data.data.to
@@ -289,7 +319,7 @@ export default {
                 }
             })
             .catch(e => {
-                this.$root.$emit('show-loading', false)
+                this.$root.$emit('show', false)
             })
         },
 
@@ -360,6 +390,22 @@ export default {
             }
 
             this.loadData()
+        },
+
+        editTodo(address,id) {
+            this.$root.$emit('show', true)
+            var params = {
+                address:address,
+                user_id:id
+            }
+            var url = config.API_URL + 'update-address'
+            axios.get(url,{
+                params:params
+            })
+            .then(res => {
+
+            })
+
         },
   	},
   	computed: {
