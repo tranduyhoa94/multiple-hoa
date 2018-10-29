@@ -118,11 +118,11 @@
                 <tbody>
                         <tr role="row" v-for="(pp,index) in participants.data" v-if="participants.data && participants.data.length">
                             <td>
-                            123
-                                <!-- <div class="image-profile">
-                                    <img class="custome-image" :src="'uploads/' + pp.profile_image" v-if="pp.profile_image">
-                                    <img class="custome-image" src="img/profile-img.png" v-else>
-                                </div> -->
+                               <select class="search-input-select form-control font-weight-bold" type="select" aria-controls="example" v-on:change="updateMoniter(pp.id)" v-model="selectd">
+                                        <option v-for="(opt, index) in opts" :value="opt.value">
+                                             {{ opt.text }}
+                                        </option>
+                                </select>
                             </td>
                             <td>
                                 <div class="prp-text text-capitalize">
@@ -143,7 +143,7 @@
                     
                                 <input v-if = "pp.edit" v-model = "pp.address"
                                   @blur= "pp.edit = false; editTodo(pp.address,pp.id)"
-                                  @keyup.enter = "pp.edit=false; editTodo()" class="form-control">
+                                  @keyup.enter = "pp.edit=false; editTodo(pp.address,pp.id)" class="form-control">
                                 <div v-else>
                                     <strong class="primary--text"><label @click = "pp.edit = true;">  {{pp.address || 'edit'}} </label></strong>
                                 </div>
@@ -246,8 +246,13 @@ export default {
                 email: '',
                 from_day:''
             },
+            selectd:{ value: '1', text: 'Hoa' },
             month:'',
-            editing:0,
+            opts: [
+                { value: '1', text: 'Hoa' },
+                { value: '2', text: 'Thanh' },
+                { value: '99', text: 'Cancle' },
+            ]
     	}
   	},
     components : {
@@ -282,13 +287,14 @@ export default {
         },
 
         handleSearch(){
+
             this.makeSearchParams()
 
             this.loadData()
         },
   		
   		loadData(){
-            this.$root.$emit('show', true)
+            // this.$root.$emit('show', true)
             let url = config.API_URL + 'program'
 
             let params = {
@@ -393,23 +399,28 @@ export default {
         },
 
         editTodo(address,id) {
-            this.$root.$emit('show', true)
-            var params = {
-                address:address,
-                user_id:id
-            }
-            var url = config.API_URL + 'update-address'
-            axios.get(url,{
-                params:params
-            })
-            .then(res => {
-                this.$root.$emit('show', true)
-             
-                    this.loadData()
-                
-            })
 
+            if(address != null) {     
+                this.$root.$emit('show', true)
+                var params = {
+                    address:address,
+                    user_id:id
+                }
+                var url = config.API_URL + 'update-address'
+                axios.get(url,{
+                    params:params
+                })
+                .then(res => {
+                    this.$root.$emit('show', true)
+                    this.loadData()
+                    
+                })
+            }  
+          
         },
+        updateMoniter(id){
+            console.log(this.selectd)
+        }
   	},
   	computed: {
   		paginationInfo () {

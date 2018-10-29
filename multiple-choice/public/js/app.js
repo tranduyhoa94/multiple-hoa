@@ -90279,7 +90279,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -90543,8 +90543,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 email: '',
                 from_day: ''
             },
+            selectd: { value: '1', text: 'Hoa' },
             month: '',
-            editing: 0
+            opts: [{ value: '1', text: 'Hoa' }, { value: '2', text: 'Thanh' }, { value: '99', text: 'Cancle' }]
         };
     },
 
@@ -90579,6 +90580,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.searchBy = searchValues.join(";");
         },
         handleSearch: function handleSearch() {
+
             this.makeSearchParams();
 
             this.loadData();
@@ -90586,7 +90588,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadData: function loadData() {
             var _this = this;
 
-            this.$root.$emit('show', true);
+            // this.$root.$emit('show', true)
             var url = __WEBPACK_IMPORTED_MODULE_0__config_index_js__["a" /* default */].API_URL + 'program';
 
             var params = {
@@ -90684,19 +90686,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         editTodo: function editTodo(address, id) {
             var _this2 = this;
 
-            this.$root.$emit('show', true);
-            var params = {
-                address: address,
-                user_id: id
-            };
-            var url = __WEBPACK_IMPORTED_MODULE_0__config_index_js__["a" /* default */].API_URL + 'update-address';
-            axios.get(url, {
-                params: params
-            }).then(function (res) {
-                _this2.$root.$emit('show', true);
-
-                _this2.loadData();
-            });
+            if (address != null) {
+                this.$root.$emit('show', true);
+                var params = {
+                    address: address,
+                    user_id: id
+                };
+                var url = __WEBPACK_IMPORTED_MODULE_0__config_index_js__["a" /* default */].API_URL + 'update-address';
+                axios.get(url, {
+                    params: params
+                }).then(function (res) {
+                    _this2.$root.$emit('show', true);
+                    _this2.loadData();
+                });
+            }
+        },
+        updateMoniter: function updateMoniter(id) {
+            console.log(this.selectd);
         }
     },
     computed: {
@@ -91397,8 +91403,60 @@ var render = function() {
                     return _vm.participants.data && _vm.participants.data.length
                       ? _c("tr", { attrs: { role: "row" } }, [
                           _c("td", [
-                            _vm._v(
-                              "\n                            123\n                                "
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selectd,
+                                    expression: "selectd"
+                                  }
+                                ],
+                                staticClass:
+                                  "search-input-select form-control font-weight-bold",
+                                attrs: {
+                                  type: "select",
+                                  "aria-controls": "example"
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.selectd = $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    },
+                                    function($event) {
+                                      _vm.updateMoniter(pp.id)
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(_vm.opts, function(opt, index) {
+                                return _c(
+                                  "option",
+                                  { domProps: { value: opt.value } },
+                                  [
+                                    _vm._v(
+                                      "\n                                             " +
+                                        _vm._s(opt.text) +
+                                        "\n                                        "
+                                    )
+                                  ]
+                                )
+                              })
                             )
                           ]),
                           _vm._v(" "),
@@ -91472,7 +91530,7 @@ var render = function() {
                                         return null
                                       }
                                       pp.edit = false
-                                      _vm.editTodo()
+                                      _vm.editTodo(pp.address, pp.id)
                                     },
                                     input: function($event) {
                                       if ($event.target.composing) {
