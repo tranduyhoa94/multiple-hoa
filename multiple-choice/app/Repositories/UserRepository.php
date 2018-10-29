@@ -65,4 +65,20 @@ class UserRepository extends BaseRepository
 
         return $listUser->paginate($perPage);
     }
+
+    public function updateAddress($attribute){
+        // dd($attribute);
+        $find_user = $this->model->where('id',$attribute['user_id'])->first();
+
+        if($find_user) {
+
+            $find_user = $this->model->where('id',$attribute['user_id'])->update([
+                                    'address' => $attribute['address']
+                                ]); 
+             return $find_user;
+        }
+
+        return null;
+
+    }
 }

@@ -403,7 +403,10 @@ export default {
                 params:params
             })
             .then(res => {
-
+                this.$root.$emit('show', true)
+             
+                    this.loadData()
+                
             })
 
         },

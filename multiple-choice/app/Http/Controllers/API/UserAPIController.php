@@ -160,6 +160,10 @@ class UserAPIController extends AppBaseController
     }
 
     public function updateAddressUser(Request $request) {
-        dd($request->all());
+        
+        $user = $this->userRepository->updateAddress($request->all());
+
+        return $this->sendResponse($user, 'Users retrieved successfully');
+
     }
 }
