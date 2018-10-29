@@ -152,8 +152,18 @@ class UserAPIController extends AppBaseController
 
         }
 
-        $users  = $this->userRepository->paginate($perPage);
+        // dd($searchBy);
+
+        $users  = $this->userRepository->getUserParams($perPage,$sortBy,$searchBy);
 
         return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
+    }
+
+    public function updateAddressUser(Request $request) {
+        
+        $user = $this->userRepository->updateAddress($request->all());
+
+        return $this->sendResponse($user, 'Users retrieved successfully');
+
     }
 }

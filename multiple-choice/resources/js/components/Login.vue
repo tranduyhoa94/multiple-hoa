@@ -69,7 +69,6 @@ export default {
   		if (this.$refs.form.validate()) {
   			auth.login(this.user.email,this.user.password)
         this.token =  localStorage.getItem('access_token')
-        console.log(this.token)
         if(this.token) {
           this.$notify({
             group: 'foo',

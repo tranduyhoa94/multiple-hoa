@@ -30,8 +30,27 @@
 
 .paging-bottom {
 	text-align: center;
+	width :50%;
+	float: right;
 }
 
 .page.secondary-color {
 	background-color: #ef6c00;
+}
+
+.ntf-pagination {
+	width :50%;
+	float: left;
+}
+
+.notification-dropdown-form-control {
+	width:20%;
+}
+
+.mx-input-append{
+	height: 35px !important;
+}
+
+.group-bottom{
+	margin-bottom: 0px;
 }
