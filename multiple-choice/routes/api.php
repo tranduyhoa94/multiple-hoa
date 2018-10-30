@@ -26,4 +26,7 @@ Route::group(['namespace' => 'API'],function(){
 	Route::get('program', 'UserAPIController@getProgramUser');
 
 	Route::get('update-address', 'UserAPIController@updateAddressUser');
+	
+	Route::resource('user_dash', 'UserDashAPIController');
+
 });

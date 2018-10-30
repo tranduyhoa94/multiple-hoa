@@ -5,6 +5,7 @@ import Dashboard from '../components/Dashboard.vue'
 import User from '../components/users/index.vue'
 import Login from '../components/Login.vue'
 import Slide from '../components/sile/index.vue'
+import UserDash from '../components/users/UserDash.vue'
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ routers = [
 				path:'/slide',
 				name:'Slide',
 				component:Slide
+			},
+			{
+				path:'/user-dash',
+				name:'UserDash',
+				component:UserDash
 			}
 
 		]

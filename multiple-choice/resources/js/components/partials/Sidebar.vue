@@ -65,7 +65,7 @@
               children: [
                 { text: 'Dashboard Admin' ,link: 'users', icon: 'dashboard' },
                 { icon: 'fa-universal-access', text: 'Acl Admin', link: 'slide' },
-                { icon: 'link', text: 'Links Admin', link: 'links-admin' },
+                { icon: 'link', text: 'Links Admin', link: 'user-dash' },
                 { text: 'Users', link: 'user', icon:'people'}
               ]
             }

@@ -118,10 +118,15 @@
                 <tbody>
                         <tr role="row" v-for="(pp,index) in participants.data" v-if="participants.data && participants.data.length">
                             <td>
-                               <select class="search-input-select form-control font-weight-bold" type="select" aria-controls="example" v-on:change="updateMoniter(pp.id)" v-model="selectd">
-                                        <option v-for="(opt, index) in opts" :value="opt.value">
-                                             {{ opt.text }}
-                                        </option>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" @change="updateCheckedMonitor(pp)" v-model="pp.shipping">
+                                </div>
+                            </td>
+                            <td>
+                               <select class="search-input-select form-control font-weight-bold" type="select" aria-controls="example" v-model="pp.action.id" @change="setCodeAndLabelForForm($event.target.selectedIndex,pp.id)" >
+                                    <option v-for="option in options" :value="option.id">
+                                        {{option.label}}
+                                    </option>
                                 </select>
                             </td>
                             <td>
@@ -215,6 +220,10 @@
 import config from '../../config/index.js'
 import DatePicker from 'vue2-datepicker'
 import moment from 'moment'
+import Vue from 'vue'
+import vSelect from 'vue-select'
+
+Vue.component('v-select', vSelect)
 
 export default {
 
@@ -246,13 +255,12 @@ export default {
                 email: '',
                 from_day:''
             },
-            selectd:{ value: '1', text: 'Hoa' },
             month:'',
-            opts: [
-                { value: '1', text: 'Hoa' },
-                { value: '2', text: 'Thanh' },
-                { value: '99', text: 'Cancle' },
-            ]
+            options: [      
+              {id: 1, label: 'foo'},
+              {id: 3, label: 'bar'},
+              {id: 2, label: 'baz'},
+            ], 
     	}
   	},
     components : {
@@ -313,11 +321,20 @@ export default {
 
                 if(response && response.data.success){
                      _.forEach(response.data.data.data, function(index,value) {
-                        // console.log(response.data.data.data[value]);
-                        response.data.data.data[value].edit = false;                
+                        console.log(response.data.data.data[value].address);
+                        response.data.data.data[value].edit = false;
+                        if(response.data.data.data[value].address == 1){
+                            response.data.data.data[value].action = {id: 1, label: 'foo'};
+                        } else {
+                            response.data.data.data[value].action = {id: 3, label: 'bar'};
+                        }  
+                        if(response.data.data.data[value].shipping == 1){
+                            response.data.data.data[value].shipping = true;
+                        } else {
+                            response.data.data.data[value].shipping = false;
+                        }    
                     });
                     this.participants = response.data.data
-                    // console.log(this.participants)
                     this.paginator.lastPage = response.data.data.last_page
                     this.paginator.from = response.data.data.from
                     this.paginator.to = response.data.data.to
@@ -418,8 +435,18 @@ export default {
             }  
           
         },
-        updateMoniter(id){
-            console.log(this.selectd)
+       setCodeAndLabelForForm(selectedIndex,id) {
+          var selectedIdea = this.options[selectedIndex];
+          console.log(selectedIdea)
+          console.log(id)
+
+          //write update 
+        },
+        updateCheckedMonitor(item) {
+            if(!item.shipping){
+                item.shipping = false;
+            }
+            console.log(item)//write aixos.post with params
         }
   	},
   	computed: {
