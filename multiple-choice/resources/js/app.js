@@ -19,7 +19,8 @@ import '@fortawesome/fontawesome-free/css/all.css' // Ensure you are using css-l
 import Vuetify from 'vuetify'
 import VueEvents from 'vue-events'
 import Lodash from 'lodash'
-
+import VueDragscroll from 'vue-dragscroll'
+Vue.use(VueDragscroll)
 
 Vue.use(Lodash)
 

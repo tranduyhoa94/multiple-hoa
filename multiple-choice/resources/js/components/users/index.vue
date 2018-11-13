@@ -3,168 +3,170 @@
         <div class="as-body">
             <div class="as-answer-group" >
                 <div class="table-responsive">
-                <table class="table table-striped table-hover" ref="vuetable" id="program-participants-table" >
-                <!-- sort row -->
-                <thead>
-                    <tr class="text-table-head" role="row">
-                        <th style="width: 10%;">
-                            <div class="caret-title"></div>
-                        </th>
-                        <th style="width: 20%;" @click="sortByColumn('firstname')">
-                            <div class="caret-title">
-                                First Name
-                                <span class="sorting secondary-color pl-2" v-if="sortColumn === 'firstname'">
-                                    <i class="fa fa-caret-up" aria-hidden="true" v-if="sortType === 'asc'"></i>
-                                    <i class="fa fa-caret-down" aria-hidden="true" v-if="sortType === 'desc'"></i>
-                                </span>
-                            </div>
-                        </th>
-                        <th style="width: 20%;" @click="sortByColumn('lastname')">
-                            <div class="caret-title">
-                                Last Name
-                                <span class="sorting secondary-color pl-2" v-if="sortColumn === 'lastname'">
-                                    <i class="fa fa-caret-up" aria-hidden="true" v-if="sortType === 'asc'"></i>
-                                    <i class="fa fa-caret-down" aria-hidden="true" v-if="sortType === 'desc'"></i>
-                                </span>
-                          </div>
-                        </th>
-                        <th style="width: 25%;" @click="sortByColumn('email')">
-                            <div class="caret-title">
-                                Email
-                                <span class="sorting secondary-color pl-2" v-if="sortColumn === 'email'">
-                                    <i class="fa fa-caret-up" aria-hidden="true" v-if="sortType === 'asc'"></i>
-                                    <i class="fa fa-caret-down" aria-hidden="true" v-if="sortType === 'desc'"></i>
-                                </span>
-                            </div>
-                        </th>
-                        <th style="width: 10%;" @click="sortByColumn('mentor')">
-                            <div class="caret-title">
-                                Mentor
-                                <span class="sorting secondary-color pl-2" v-if="sortColumn === 'mentor'">
-                                    <i class="fa fa-caret-up" aria-hidden="true" v-if="sortType === 'asc'"></i>
-                                    <i class="fa fa-caret-down" aria-hidden="true" v-if="sortType === 'desc'"></i>
-                                </span>
-                            </div>
-                        </th>
-                        <th style="width: 10%;" @click="sortByColumn('mentee')">
-                            <div class="caret-title">
-                                Mentee
-                                <span class="sorting secondary-color pl-2" v-if="sortColumn === 'mentee'">
-                                    <i class="fa fa-caret-up" aria-hidden="true" v-if="sortType === 'asc'"></i>
-                                    <i class="fa fa-caret-down" aria-hidden="true" v-if="sortType === 'desc'"></i>
-                                </span>
-                            </div>
-                        </th>
-                    </tr>
-                </thead>
-                <!-- end sort row -->
-                <!-- search row -->
-                <thead>
-                    <tr class="search-table-head" role="row">
-                        <th style="width: 10%;">
-                              <div class="form-group group-bottom">
-                                 <date-picker   :editable='false' v-model="searchColumn.from_day" lang="en" type="date" format="YYYY-MM-DD" @keyup="handleSearch()" @change="handleSearch()" width="150" placeholder=""></date-picker>
-                                <!--   <div class="form-group group-bottom">
-                                 <date-picker   :editable='false' v-model="searchColumn.from_day" lang="en" type="date" format="YYYY-MM-DD" @keyup="handleSearch()" @change="handleSearch()" width="150" placeholder=""></date-picker> -->
-                            <!-- </div>   -->
-                            </div>  
-                        </th>
-                        <th style="width: 20%;">
-                          <div class="form-group group-bottom">
-                            <input class="form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.firstname" id="input-1">
-                          </div>
-                        </th>
-                        <th style="width: 20%;">
-                            <div class="form-group group-bottom">
-                                <input class="form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.lastname" id="input-2">
-                            </div>
-                        </th>
-                        <th style="width: 25%;">
-                           <div class="form-group group-bottom">
-                                <input class="form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.email" id="input-3">
-                          </div>
-                        </th>
-                        <th style="width: 10%;">
-                            <div class="input-group input-group-sm custom-input-group">
-                               <!--  <div class="select-control">
-                                    <select class="search-input-select form-control font-weight-bold" type="select" aria-controls="example" v-model="searchColumn.mentor" v-on:change="handleSearch()">
-                                        <option v-for="(r, key) in searchRoles" :value="r">
-                                            {{r}}
-                                        </option>
-                                    </select>
-                                    <span class="caret secondary-color">
-                                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                <div class="table-content big-box grab-bing border oh" v-dragscroll.x="true">
+                    <table class="table table-striped table-hover" ref="vuetable" id="program-participants-table" >
+                    <!-- sort row -->
+                    <thead>
+                        <tr class="text-table-head" role="row">
+                            <th style="width: 10%;">
+                                <div class="caret-title"></div>
+                            </th>
+                            <th style="width: 20%;" @click="sortByColumn('firstname')">
+                                <div class="caret-title">
+                                    First Name
+                                    <span class="sorting secondary-color pl-2" v-if="sortColumn === 'firstname'">
+                                        <i class="fa fa-caret-up" aria-hidden="true" v-if="sortType === 'asc'"></i>
+                                        <i class="fa fa-caret-down" aria-hidden="true" v-if="sortType === 'desc'"></i>
                                     </span>
-                                </div> -->
-                            </div>
-                        </th>
-                        <th style="width: 10%;">
-                            <div class="input-group input-group-sm custom-input-group">
-                                <!-- <div class="select-control">
-                                    <select class="search-input-select form-control font-weight-bold" type="select" aria-controls="example" v-model="searchColumn.mentee" v-on:change="handleSearch()">
-                                        <option v-for="(r, key) in searchRoles" :value="r">
-                                            {{r}}
-                                        </option>
-                                    </select>
-                                    <span class="caret secondary-color">
-                                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                </div>
+                            </th>
+                            <th style="width: 20%;" @click="sortByColumn('lastname')">
+                                <div class="caret-title">
+                                    Last Name
+                                    <span class="sorting secondary-color pl-2" v-if="sortColumn === 'lastname'">
+                                        <i class="fa fa-caret-up" aria-hidden="true" v-if="sortType === 'asc'"></i>
+                                        <i class="fa fa-caret-down" aria-hidden="true" v-if="sortType === 'desc'"></i>
                                     </span>
-                                </div> -->
-                            </div>
-                        </th>
-                    </tr>
-                </thead>
-                <!-- end search row -->
-                <tbody>
-                        <tr role="row" v-for="(pp,index) in participants.data" v-if="participants.data && participants.data.length">
-                            <td>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" @change="updateCheckedMonitor(pp)" v-model="pp.shipping">
+                              </div>
+                            </th>
+                            <th style="width: 25%;" @click="sortByColumn('email')">
+                                <div class="caret-title">
+                                    Email
+                                    <span class="sorting secondary-color pl-2" v-if="sortColumn === 'email'">
+                                        <i class="fa fa-caret-up" aria-hidden="true" v-if="sortType === 'asc'"></i>
+                                        <i class="fa fa-caret-down" aria-hidden="true" v-if="sortType === 'desc'"></i>
+                                    </span>
                                 </div>
-                            </td>
-                            <td>
-                               <select class="search-input-select form-control font-weight-bold" type="select" aria-controls="example" v-model="pp.action.id" @change="setCodeAndLabelForForm($event.target.selectedIndex,pp.id)" >
-                                    <option v-for="option in options" :value="option.id">
-                                        {{option.label}}
-                                    </option>
-                                </select>
-                            </td>
-                            <td>
-                                <div class="prp-text text-capitalize">
-                                    {{pp.first_name}}
+                            </th>
+                            <th style="width: 10%;" @click="sortByColumn('mentor')">
+                                <div class="caret-title">
+                                    Mentor
+                                    <span class="sorting secondary-color pl-2" v-if="sortColumn === 'mentor'">
+                                        <i class="fa fa-caret-up" aria-hidden="true" v-if="sortType === 'asc'"></i>
+                                        <i class="fa fa-caret-down" aria-hidden="true" v-if="sortType === 'desc'"></i>
+                                    </span>
                                 </div>
-                            </td>
-                            <td>
-                                <div class="prp-text text-capitalize">
-                                    {{pp.last_name}}
+                            </th>
+                            <th style="width: 10%;" @click="sortByColumn('mentee')">
+                                <div class="caret-title">
+                                    Mentee
+                                    <span class="sorting secondary-color pl-2" v-if="sortColumn === 'mentee'">
+                                        <i class="fa fa-caret-up" aria-hidden="true" v-if="sortType === 'asc'"></i>
+                                        <i class="fa fa-caret-down" aria-hidden="true" v-if="sortType === 'desc'"></i>
+                                    </span>
                                 </div>
-                            </td>
-                            <td>
-                                <div class="prp-text">
-                                    {{pp.email}}
-                                </div>
-                            </td>
-                            <td>
-                    
-                                <input v-if = "pp.edit" v-model = "pp.address"
-                                  @blur= "pp.edit = false; editTodo(pp.address,pp.id)"
-                                  @keyup.enter = "pp.edit=false; editTodo(pp.address,pp.id)" class="form-control">
-                                <div v-else>
-                                    <strong class="primary--text"><label @click = "pp.edit = true;">  {{pp.address || 'edit'}} </label></strong>
-                                </div>
-                                
-                            </td>
-                            <td>
-                                <!-- <div class="prp-text">
-                                    {{pp.mentee_role}}
-                                </div> -->
-                            </td>
+                            </th>
                         </tr>
+                    </thead>
+                    <!-- end sort row -->
+                    <!-- search row -->
+                    <thead>
+                        <tr class="search-table-head" role="row">
+                            <th style="width: 10%;">
+                                  <div class="form-group group-bottom">
+                                     <date-picker   :editable='false' v-model="searchColumn.from_day" lang="en" type="date" format="YYYY-MM-DD" @keyup="handleSearch()" @change="handleSearch()" width="150" placeholder=""></date-picker>
+                                    <!--   <div class="form-group group-bottom">
+                                     <date-picker   :editable='false' v-model="searchColumn.from_day" lang="en" type="date" format="YYYY-MM-DD" @keyup="handleSearch()" @change="handleSearch()" width="150" placeholder=""></date-picker> -->
+                                <!-- </div>   -->
+                                </div>  
+                            </th>
+                            <th style="width: 20%;">
+                              <div class="form-group group-bottom">
+                                <input class="form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.firstname" id="input-1">
+                              </div>
+                            </th>
+                            <th style="width: 20%;">
+                                <div class="form-group group-bottom">
+                                    <input class="form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.lastname" id="input-2">
+                                </div>
+                            </th>
+                            <th style="width: 25%;">
+                               <div class="form-group group-bottom">
+                                    <input class="form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.email" id="input-3">
+                              </div>
+                            </th>
+                            <th style="width: 10%;">
+                                <div class="input-group input-group-sm custom-input-group">
+                                   <!--  <div class="select-control">
+                                        <select class="search-input-select form-control font-weight-bold" type="select" aria-controls="example" v-model="searchColumn.mentor" v-on:change="handleSearch()">
+                                            <option v-for="(r, key) in searchRoles" :value="r">
+                                                {{r}}
+                                            </option>
+                                        </select>
+                                        <span class="caret secondary-color">
+                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                        </span>
+                                    </div> -->
+                                </div>
+                            </th>
+                            <th style="width: 10%;">
+                                <div class="input-group input-group-sm custom-input-group">
+                                    <!-- <div class="select-control">
+                                        <select class="search-input-select form-control font-weight-bold" type="select" aria-controls="example" v-model="searchColumn.mentee" v-on:change="handleSearch()">
+                                            <option v-for="(r, key) in searchRoles" :value="r">
+                                                {{r}}
+                                            </option>
+                                        </select>
+                                        <span class="caret secondary-color">
+                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                        </span>
+                                    </div> -->
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <!-- end search row -->
+                    <tbody>
+                            <tr role="row" v-for="(pp,index) in participants.data" v-if="participants.data && participants.data.length">
+                                <td>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1" @change="updateCheckedMonitor(pp)" v-model="pp.shipping">
+                                    </div>
+                                </td>
+                                <td>
+                                   <select class="search-input-select form-control font-weight-bold" type="select" aria-controls="example" v-model="pp.action.id" @change="setCodeAndLabelForForm($event.target.selectedIndex,pp.id)" >
+                                        <option v-for="option in options" :value="option.id">
+                                            {{option.label}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="prp-text text-capitalize">
+                                        {{pp.first_name}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="prp-text text-capitalize">
+                                        {{pp.last_name}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="prp-text">
+                                        {{pp.email}}
+                                    </div>
+                                </td>
+                                <td>
+                        
+                                    <input v-if = "pp.edit" v-model = "pp.address"
+                                      @blur= "pp.edit = false; editTodo(pp.address,pp.id)"
+                                      @keyup.enter = "pp.edit=false; editTodo(pp.address,pp.id)" class="form-control">
+                                    <div v-else>
+                                        <strong class="primary--text"><label @click = "pp.edit = true;">  {{pp.address || 'edit'}} </label></strong>
+                                    </div>
+                                    
+                                </td>
+                                <!-- <td>
+                                    <div class="prp-text">
+                                        {{pp.mentee_role}}
+                                    </div>
+                                </td> -->
+                            </tr>
 
-                        <tr class="odd listing" v-if="participants.data && !participants.data.length"><td valign="top" colspan="6" class="text-center">No data available in table</td></tr>
-                    </tbody>
+                            <tr class="odd listing" v-if="participants.data && !participants.data.length"><td valign="top" colspan="6" class="text-center">No data available in table</td></tr>
+                        </tbody>
 
-        		</table>
+            		</table>
+                 </div>   
                 <!-- paginator -->
                     <div class="paging">
                     	<div class="paging-top ntf-pagination ">
@@ -222,12 +224,15 @@ import DatePicker from 'vue2-datepicker'
 import moment from 'moment'
 import Vue from 'vue'
 import vSelect from 'vue-select'
-
+import { dragscroll } from 'vue-dragscroll'
 Vue.component('v-select', vSelect)
 
 export default {
 
   name: 'indexUser',
+  directives: {
+            'dragscroll': dragscroll
+        },
 
   data () {
     return {
@@ -486,4 +491,17 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.big-box {
+    overflow: scroll;
+}
+.grab-bing {
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: -o-grab;
+    cursor: grab;
+}
+.oh {
+    overflow: hidden;
+}
 </style>
