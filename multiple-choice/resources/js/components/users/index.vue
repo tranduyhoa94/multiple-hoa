@@ -3,7 +3,8 @@
         <div class="as-body">
             <div class="as-answer-group" >
                 <div class="table-responsive">
-                <div class="table-content big-box grab-bing border oh" v-dragscroll.x="true">
+                <div class="table-content big-box grab-bing border oh" v-dragscroll:nochilddrag >
+                   
                     <table class="table table-striped table-hover" ref="vuetable" id="program-participants-table" >
                     <!-- sort row -->
                     <thead>
@@ -82,7 +83,7 @@
                             </th>
                             <th style="width: 25%;">
                                <div class="form-group group-bottom">
-                                    <input class="form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.email" id="input-3">
+                                    <input class="form-control" type="text" @keyup="handleSearch()"  @change="handleSearch()" v-model="searchColumn.email" id="input-3">
                               </div>
                             </th>
                             <th style="width: 10%;">
@@ -116,8 +117,9 @@
                         </tr>
                     </thead>
                     <!-- end search row -->
+
                     <tbody>
-                            <tr role="row" v-for="(pp,index) in participants.data" v-if="participants.data && participants.data.length">
+                            <tr role="row" v-for="(pp,index) in participants.data" v-if="participants.data && participants.data.length" >
                                 <td>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck1" @change="updateCheckedMonitor(pp)" v-model="pp.shipping">
@@ -163,10 +165,10 @@
                             </tr>
 
                             <tr class="odd listing" v-if="participants.data && !participants.data.length"><td valign="top" colspan="6" class="text-center">No data available in table</td></tr>
-                        </tbody>
+                    </tbody>
 
             		</table>
-                 </div>   
+                 </div>
                 <!-- paginator -->
                     <div class="paging">
                     	<div class="paging-top ntf-pagination ">
@@ -223,9 +225,7 @@ import config from '../../config/index.js'
 import DatePicker from 'vue2-datepicker'
 import moment from 'moment'
 import Vue from 'vue'
-import vSelect from 'vue-select'
 import { dragscroll } from 'vue-dragscroll'
-Vue.component('v-select', vSelect)
 
 export default {
 
@@ -246,6 +246,7 @@ export default {
 	                from: 0,
 	                to: 0,
         	},
+            message:'',
         	longPaginatorEachSize: 2,
             existPageBefore: false,
             existPageAfter: false,
@@ -490,18 +491,27 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 
 .big-box {
     overflow: scroll;
+    /*height: 100px;*/
 }
+
 .grab-bing {
-    cursor: -webkit-grab;
-    cursor: -moz-grab;
-    cursor: -o-grab;
-    cursor: grab;
+  cursor : -webkit-grab;
+  cursor : -moz-grab;
+  cursor : -o-grab;
+  cursor : default;
+}
+
+.grab-bing:active {
+  cursor : -webkit-grabbing;
+  cursor : -moz-grabbing;
+  cursor : -o-grabbing;
+  cursor : grabbing;
 }
 .oh {
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 </style>
