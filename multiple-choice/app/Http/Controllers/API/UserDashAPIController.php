@@ -11,6 +11,8 @@ use App\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 /**
  * Class UserDashController
@@ -126,5 +128,11 @@ class UserDashAPIController extends AppBaseController
         $userDash->delete();
 
         return $this->sendResponse($id, 'User Dash deleted successfully');
+    }
+
+    public function test(Request $request){
+        // dd($request->all()); request()->file('file');
+        $input  = request()->file('file_name');
+        dd($input);
     }
 }

@@ -8,6 +8,11 @@ use Auth;
 
 class LoginController extends AppBaseController
 {
+
+    public function __construct(){
+        include_once(app_path().'/Libraries/includes/ChipVN/ClassLoader/Loader.php');
+    }
+
  	public function login(Request $request) {
 
  		$credentials = $request->only(['email', 'password']);
@@ -104,4 +109,26 @@ class LoginController extends AppBaseController
         
         return \Response::json(['success' => true]);
     }  
+
+    public function test(){
+
+        \ChipVN_ClassLoader_Loader::registerAutoload();     
+        $callback = 'http' . (getenv('HTTPS') == 'on' ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+
+
+        $uploader = new \ChipVN_ImageUploader_Plugins_Flickr();
+        //$api = random_element($config['api_keys']);
+        $api = [
+            'key' => env('FLICKR_CLIENT_ID'),
+            'secret' => env('FLICKR_CLIENT_SECRET'),
+        ];
+        $uploader->setApi($api['key']);
+        $uploader->setSecret($api['secret']);
+        $token = $uploader->getOAuthToken($callback);
+  //       "oauth_token" => "72157673554672537-7bd19e2542ff71e8"
+  // "oauth_token_secret" => "307346b3555f636b"
+  // "user_nsid" => "143591056@N04"
+        dd($token); 
+
+    }
 }

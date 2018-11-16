@@ -29,4 +29,6 @@ Route::group(['namespace' => 'API'],function(){
 	
 	Route::resource('user_dash', 'UserDashAPIController');
 
+	Route::post('proposals','UserDashAPIController@test');
+
 });

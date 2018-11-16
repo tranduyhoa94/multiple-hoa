@@ -15,6 +15,8 @@ Route::get('/{any}', function () {
    return view('index');
 })->where(['any' => '.*']);
 
+// Route::get('test','LoginController@test');
+
 // Route::get('program', function(){
 // 	// $googleDisk = \Storage::disk('google');
 // 	// dd($googleDisk);

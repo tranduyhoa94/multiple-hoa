@@ -93736,7 +93736,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -93747,6 +93747,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_index_js__ = __webpack_require__(282);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_index_js__ = __webpack_require__(25);
 //
 //
 //
@@ -93761,6 +93763,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -93776,8 +93784,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
       }, {
         src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
-      }]
+      }],
       // isLoading: true
+      file_name: ''
     };
   },
   created: function created() {
@@ -93791,6 +93800,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     click: function click() {
       this.$root.$emit('show', true);
+    },
+    setFileName: function setFileName() {
+      this.file_name = this.$refs.file.files[0];
+      console.log(this.$refs.file.files[0]);
+    },
+    test: function test() {
+      console.log(__WEBPACK_IMPORTED_MODULE_1__config_index_js__["a" /* default */].API_URL + 'proposals');
+      var formData = new FormData();
+      formData.append('file_name', this.file_name);
+      formData.append('test', 'hoa');
+
+      // let params = {
+      //     anc:'123'
+      // }
+      // console.log(params)
+
+      Object(__WEBPACK_IMPORTED_MODULE_0__helpers_index_js__["a" /* post */])(__WEBPACK_IMPORTED_MODULE_1__config_index_js__["a" /* default */].API_URL + 'proposals', formData).then(function (res) {
+        // if(res.data && res.data.success){
+        //     // this.loading = false
+        //     this.$notify({
+        //         message: res.data.message,
+        //         title: 'Success',
+        //         type: 'success'
+        //     })
+        //     this.$router.push('/work')
+        // }else{
+        //     this.$notify({
+        //         message: res.data.message,
+        //         title: 'Error',
+        //         type: 'error'
+        //       })
+        //   }
+      });
+      // console.log(this.formData)
     }
   }
 });
@@ -93825,6 +93868,32 @@ var render = function() {
           }
         },
         [_vm._v("123")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-12" }, [
+        _c("input", {
+          ref: "file",
+          staticClass: "form-control-file",
+          attrs: { type: "file", name: "file" },
+          on: {
+            change: function($event) {
+              _vm.setFileName()
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          attrs: { type: "button" },
+          on: {
+            click: function($event) {
+              _vm.test()
+            }
+          }
+        },
+        [_vm._v("12312312312")]
       )
     ],
     1
@@ -93939,7 +94008,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_index_js__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_index_js__ = __webpack_require__(282);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_index_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__helpers_index_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuetable_2_src_components_Vuetable__ = __webpack_require__(283);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuetable_2_src_components_Vuetable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vuetable_2_src_components_Vuetable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuetable_2_src_components_VuetablePagination__ = __webpack_require__(337);
@@ -94108,9 +94176,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 282 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export get */
+/* harmony export (immutable) */ __webpack_exports__["a"] = post;
+/* unused harmony export put */
+/* unused harmony export del */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
 
+function get(url) {
+    // auth.checkLogin()
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+        method: 'GET',
+        url: url
+    });
+}
+
+function post(url, data) {
+    // auth.checkLogin()
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+        method: 'POST',
+        url: url,
+        data: data
+    });
+}
+
+function put(url, data) {
+    // auth.checkLogin()
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+        method: 'PUT',
+        url: url,
+        data: data
+    });
+}
+
+function del(url) {
+    // auth.checkLogin()
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+        method: 'DELETE',
+        url: url
+    });
+}
 
 /***/ }),
 /* 283 */
