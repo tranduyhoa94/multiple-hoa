@@ -43,6 +43,19 @@
           :css="css.pagination"
           @vuetable-pagination:change-page="onChangePage"
       ></vuetable-pagination>
+              <div style="float:right" class="form-inline">
+            <label>Per Page:</label>
+            <select class="ui simple dropdown form-control" v-model.number="perPage">
+              <option value=10>10</option>
+              <option value=15>15</option>
+              <option value=20>20</option>
+              <option value=25>25</option>
+              <option value=50>50</option>
+              <option value=100>100</option>
+              <option value=250>250</option>
+            </select>
+          </div>
+          <div class="clearfix"></div>
     </div>
     <!-- <v-snackbar v-model="snack" :timeout="3000" :color="snackColor" right bottom>
       {{ snackText }}
@@ -67,7 +80,7 @@ export default {
     return {	
     	status:false,
           apiUrl: config.API_URL + 'user_dash',
-          perPage: 30,
+          perPage: 20,
           moreParams: {},
           
           httpOptions: {
@@ -97,7 +110,7 @@ export default {
             },
             pagination: {
               infoClass: 'pull-left',
-              wrapperClass: 'vuetable-pagination pull-left',
+              wrapperClass: 'vuetable-pagination pull-left left',
               activeClass: 'btn-primary',
               disabledClass: 'disabled',
               pageClass: 'btn btn-default',
@@ -125,6 +138,11 @@ export default {
       this.$root.$on('reload-table', res => {
           this.$refs.vuetable.refresh()
       })
+    },
+    watch: {
+      'perPage': function(val, oldVal) {
+          Vue.nextTick( () => this.$refs.vuetable.refresh())
+      },
     },
     methods: {
     	onPaginationData (paginationData) {

@@ -1,5 +1,5 @@
 <template>
-  <v-list dense expand>
+  <v-list dense expand >
         <template v-for="item in items">
           <v-layout
             row
@@ -8,7 +8,7 @@
             :key="item.heading"
           >
           </v-layout>
-          <v-list-group
+          <v-list-group 
             v-else-if="item.children"
             v-model="item.model"
             :key="item.text"
@@ -27,8 +27,9 @@
               :key="child.text"
               @click=""
               :to="child.link"
+
             >
-              <v-list-tile-action v-if="child.icon">
+              <v-list-tile-action v-if="child.icon" >
                 <v-icon color="pink">{{ child.icon }}</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
@@ -61,7 +62,7 @@
               icon: 'fa-caret-up',
               'icon-alt': 'fa-caret-down',
               text: 'Admin',
-              model: true,
+              model: false,
               children: [
                 { text: 'Dashboard Admin' ,link: 'users', icon: 'dashboard' },
                 { icon: 'fa-universal-access', text: 'Acl Admin', link: 'slide' },

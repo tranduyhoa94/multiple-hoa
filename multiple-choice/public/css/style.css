@@ -54,3 +54,7 @@
 .group-bottom{
 	margin-bottom: 0px;
 }
+
+.v-navigation-drawer>.v-list .v-list__tile {
+	text-decoration: none;
+}
