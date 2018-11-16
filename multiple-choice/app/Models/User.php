@@ -28,7 +28,9 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'password',
-        'access_token'
+        'access_token',
+        'address',
+        'shipping'
     ];
 
     /**
@@ -41,7 +43,9 @@ class User extends Authenticatable
         'first_name' => 'string',
         'last_name' => 'string',
         'password' => 'string',
-        'access_token' => 'string'
+        'access_token' => 'string',
+        'address' => 'string',
+        'shipping' => 'string'
     ];
 
     /**
