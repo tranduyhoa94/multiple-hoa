@@ -58,3 +58,7 @@
 .v-navigation-drawer>.v-list .v-list__tile {
 	text-decoration: none;
 }
+
+.ql-editor {
+	height: 600px !important;
+}

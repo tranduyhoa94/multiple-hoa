@@ -31,4 +31,8 @@ Route::group(['namespace' => 'API'],function(){
 
 	Route::post('proposals','UserDashAPIController@test');
 
+	Route::resource('products', 'ProductAPIController');
+
+	Route::post('upload/image','ProductAPIController@uploadImage');
 });
+

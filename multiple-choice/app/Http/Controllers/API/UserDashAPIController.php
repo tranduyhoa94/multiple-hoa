@@ -131,8 +131,37 @@ class UserDashAPIController extends AppBaseController
     }
 
     public function test(Request $request){
-        // dd($request->all()); request()->file('file');
-        $input  = request()->file('file_name');
-        dd($input);
+
+        // dd($request->all());
+            // $filename = '1542594268.png';
+            // // Tìm file và sử dụng ID (path) của nó để xóa
+            // $dir = '/';
+            // $recursive = false; //  Có lấy file trong các thư mục con không?
+            // $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+            // $file = $contents
+            //     ->where('type', '=', 'file')
+            //     ->where('filename', '=', pathinfo($filename, PATHINFO_FILENAME))
+            //     ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
+            //     ->first(); // có thể bị trùng tên file với nhau!
+            //     dd($file);
+
+    //         $file = $request->file_name;
+    //         if(!empty($file)) {
+    //         $filename = time().'.'.$file->getClientOriginalExtension();
+    //         $pathPublic = public_path().'/files/';
+    //         if(\File::exists($pathPublic.$filename)){
+    //             unlink($pathPublic.$filename);
+                  
+    //         }
+    //         if(!\File::exists($pathPublic)) {
+    //             \File::makeDirectory($pathPublic, $mode = 0777, true, true);
+    //         }
+    //         $file->move($pathPublic, $filename);
+    //         $fileData = File::get($pathPublic.$filename);
+    //         Storage::cloud()->put($filename, $fileData);
+    // // return 'File was saved to Google Drive';
+    //         unlink($pathPublic.$filename);
+
+        // }
     }
 }
