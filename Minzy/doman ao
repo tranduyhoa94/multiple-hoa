@@ -1,0 +1,28 @@
+sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/example.com.conf
+
+sudo nano /etc/apache2/sites-available/example.com.conf
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    ServerName example.com
+	ServerAlias www.example.com
+    DocumentRoot /var/www/html
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    <Directory "/home/abyf0x/Project/participants/public/">
+        AllowOverride All
+        Order allow,deny
+        allow from all
+        require all granted
+    </Directory>
+</VirtualHost>
+
+
+
+sudo a2ensite example.com.conf
+
+sudo service apache2 restart
+
+sudo nano /etc/hosts
+
+127.0.0.1 example.com

@@ -1,0 +1,35 @@
+$pathPublic = public_path().'/files/products.csv';
+
+        if(\File::exists($pathPublic)){
+            $csv = $this->convertToArray('files/products.csv');
+        }else{
+            $csv =[];
+        }
+
+ public function convertToArray($attribute){
+        $csv = Array();
+        $rowcount = 0;
+        $file =  public_path($attribute);
+        if (($handle = fopen($file, "r")) !== FALSE) {
+            $max_line_length = defined('MAX_LINE_LENGTH') ? MAX_LINE_LENGTH : 10000;
+            $header = fgetcsv($handle, $max_line_length);
+            $header_colcount = count($header);
+            while (($row = fgetcsv($handle, $max_line_length)) !== FALSE) {
+                $row_colcount = count($row);
+                if ($row_colcount == $header_colcount) {
+                    $entry = array_combine($header, $row);
+                    $csv[] = $entry;
+                }
+                else {
+                    return null;
+                }
+                $rowcount++;
+            }
+            fclose($handle);
+        }
+        else {
+            error_log("csvreader: Could not read CSV \"$csvfile\"");
+            return null;
+        }
+        return $csv;
+    }
