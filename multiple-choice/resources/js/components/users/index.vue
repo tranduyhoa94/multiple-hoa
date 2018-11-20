@@ -65,7 +65,7 @@
                         <tr class="search-table-head" role="row">
                             <th style="width: 10%;">
                                   <div class="form-group group-bottom">
-                                     <date-picker   :editable='false' v-model="searchColumn.from_day" lang="en" type="date" format="YYYY-MM-DD" @keyup="handleSearch()" @change="handleSearch()" width="150" placeholder=""></date-picker>
+                                     <date-picker   :editable='false' v-model="searchColumn.from_day" lang="en" type="date" format="YYYY-MM-DD" @change="handleSearch()" width="150" placeholder=""></date-picker>
                                     <!--   <div class="form-group group-bottom">
                                      <date-picker   :editable='false' v-model="searchColumn.from_day" lang="en" type="date" format="YYYY-MM-DD" @keyup="handleSearch()" @change="handleSearch()" width="150" placeholder=""></date-picker> -->
                                 <!-- </div>   -->
@@ -73,17 +73,17 @@
                             </th>
                             <th style="width: 20%;">
                               <div class="form-group group-bottom">
-                                <input class="form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.firstname" id="input-1">
+                                <input class="form-control" type="text" @change="handleSearch()" v-model="searchColumn.firstname" id="input-1">
                               </div>
                             </th>
                             <th style="width: 20%;">
                                 <div class="form-group group-bottom">
-                                    <input class="form-control" type="text" @keyup="handleSearch()" @change="handleSearch()" v-model="searchColumn.lastname" id="input-2">
+                                    <input class="form-control" type="text" @change="handleSearch()" v-model="searchColumn.lastname" id="input-2">
                                 </div>
                             </th>
                             <th style="width: 25%;">
                                <div class="form-group group-bottom">
-                                    <input class="form-control" type="text" @keyup="handleSearch()"  @change="handleSearch()" v-model="searchColumn.email" id="input-3">
+                                    <input class="form-control" type="text" @change="handleSearch()" v-model.lazy="searchColumn.email" id="input-3">
                               </div>
                             </th>
                             <th style="width: 10%;">

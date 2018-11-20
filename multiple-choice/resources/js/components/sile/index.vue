@@ -63,10 +63,10 @@ import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 import { quillEditor } from 'vue-quill-editor';
-import Quill from 'quill';
-import { ImageResize } from 'quill-image-resize-module';
+// import Quill from 'quill';
+// import { ImageResize } from 'quill-image-resize-module';
 
-Quill.register('modules/imageResize', ImageResize);
+// Quill.register('modules/imageResize', ImageResize);
 
 export default {
 
@@ -109,8 +109,8 @@ export default {
             handlers: {
               image: this.imageHandler
             }
-           },
-            imageResize: true,
+           }
+            // imageResize: true,
           }
         },
         rules: {
