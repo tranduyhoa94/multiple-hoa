@@ -1,0 +1,134 @@
+ps -ef | grep php
+
+
+SELECT 
+	direct_shipments_sales.order_id as order_id,
+	sales.id as id, 
+	sales.order_date as order_date, 
+	sales.store as store, 
+	sales.record_num as record_num, 
+	sales_items.sku as sku, 
+	sales_items.quantity as quantity, 
+	sales_items.total as total, 
+	REPLACE(
+		sales.agent, '@eocenterprise.com', 
+		''
+	) as agent, 
+	sales.status as status, 
+	sales.fulfilment as fulfilment, 
+	REPLACE(
+		stamps.email, '@eocenterprise.com', 
+		''
+	) as shipper, 
+    REPLACE(REPLACE(REPLACE(REPLACE(sales_items.sku,'$D',''),'$W',''),'EOC',''),'EOCS','')AS 	part_number,
+	(
+		SELECT 
+			oh.remarks 
+		FROM 
+			integra_prod.order_history oh, 
+			integra_prod.users u 
+		WHERE 
+			oh.order_id = sales.id 
+			AND u.email = 'thanh@eocenterprise.com' 
+			AND NOT (
+				u.group_name = 'Sales' 
+				AND oh.hide_sales = 1
+			) 
+			AND NOT (
+				u.group_name = 'Data' 
+				AND oh.hide_data = 1
+			) 
+			AND NOT (
+				u.group_name = 'Pricing' 
+				AND oh.hide_pricing = 1
+			) 
+			AND NOT (
+				u.group_name = 'Shipping' 
+				AND oh.hide_shipping = 1
+			) 
+			AND oh.remarks > '' 
+		ORDER BY 
+			oh.ts DESC 
+		LIMIT 
+			1
+	) AS remarks 
+FROM 
+	eoc.sales_items, 
+	eoc.sales sales 
+	LEFT JOIN eoc.stamps ON sales.id = stamps.sales_id 
+    INNER JOIN eoc.direct_shipments_sales ON sales.id = direct_shipments_sales.sales_id
+WHERE 
+	(sales.id = sales_items.sales_id) 
+	AND sales.id IN (
+		'32057255', '32094282', '32098528', 
+		'32102207', '32125198', '32125800', 
+		'32137993', '32157447', '32185014', 
+		'32191725', '32192291', '32194846', 
+		'32196076', '32200869', '32207798', 
+		'32207807', '32215773', '32215786', 
+		'32222074', '32223153', '32225177', 
+		'32225312', '32230803', '32232349', 
+		'32232878', '32237549', '32237890', 
+		'32238820', '32239122', '32239428', 
+		'32239432', '32240682', '32240704', 
+		'32241676', '32241799', '32242280', 
+		'32243424', '32247410', '32257183', 
+		'32257184'
+	)
+    AND direct_shipments_sales.order_id = '3000358607'
+	ORDER BY 
+	order_date DESC
+
+
+
+
+
+$excel = new PHPExcel();
+	$excel->setActiveSheetIndex(0);
+	
+	$excel->getActiveSheet()->setCellValue('A1', 'Order Number');
+	$excel->getActiveSheet()->setCellValue('B1', 'Order Date');
+	$excel->getActiveSheet()->setCellValue('C1', 'Store');
+	$excel->getActiveSheet()->setCellValue('D1', 'Record #');
+	$excel->getActiveSheet()->setCellValue('E1', 'SKU');
+	$excel->getActiveSheet()->setCellValue('F1', 'Quantity');
+	$excel->getActiveSheet()->setCellValue('G1', 'Shipping components Part Number');
+	$excel->getActiveSheet()->setCellValue('H1', 'Shipping components QTY');
+	$excel->getActiveSheet()->setCellValue('I1', 'Fulfilment');
+	$excel->getActiveSheet()->setCellValue('J1', 'Status');
+
+	$numRow = 2;
+	foreach ($data as $row) {
+	    $excel->getActiveSheet()->setCellValue('A' . $numRow, $row['order_id']);
+	    $excel->getActiveSheet()->setCellValue('B' . $numRow, $row['order_date']);
+	    $excel->getActiveSheet()->setCellValue('C' . $numRow, $row['store']);
+	    $excel->getActiveSheet()->setCellValue('D' . $numRow, $row['record_num']);
+	    $excel->getActiveSheet()->setCellValue('E' . $numRow, $row['sku']);
+	    $excel->getActiveSheet()->setCellValue('F' . $numRow, $row['quantity']);
+	    $excel->getActiveSheet()->setCellValue('G' . $numRow, $row['part_number_shipping']);
+	    $excel->getActiveSheet()->setCellValue('H' . $numRow, $row['shipping_qty']);
+	    $excel->getActiveSheet()->setCellValue('I' . $numRow, $row['fulfilment']);
+	    $excel->getActiveSheet()->setCellValue('J' . $numRow, $row['status']);
+	    $numRow++;
+	}
+	// // exportToCSV
+	// // exportToXls
+	header('Content-Type: application/vnd.ms-excel');
+	header('Content-Disposition: attachment;filename="export.xls"');
+	header('Cache-Control: max-age=0');
+	// If you're serving to IE 9, then the following may be needed
+	header('Cache-Control: max-age=1');
+	// If you're serving to IE over SSL, then the following may be needed
+	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+	header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+	header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+	header('Pragma: public'); // HTTP/1.0
+	$objWriter = PHPExcel_IOFactory::createWriter($excel, 'Excel5');
+	ob_end_clean();
+	$objWriter->save('php://output');
+
+	// var_dump($objWriter);die();
+	
+	echo "<script>window.close();</script>";
+	die('file excel here');
+

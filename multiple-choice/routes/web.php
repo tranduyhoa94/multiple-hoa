@@ -15,6 +15,8 @@ Route::get('/{any}', function () {
    return view('index');
 })->where(['any' => '.*']);
 
+// Route::get('test','LoginController@test');
+
 // Route::get('program', function(){
 // 	// $googleDisk = \Storage::disk('google');
 // 	// dd($googleDisk);
@@ -30,6 +32,21 @@ Route::get('/{any}', function () {
 //     // $contents = collect(Storage::cloud()->listContents($dir, $recursive));
 //     // $reslut =  $contents->where('type', '=', 'file');
 //     // dd($reslut);
+
+//     $filename = 'image';
+//     $dir = '/';
+//     $recursive = false; // Có lấy file trong các thư mục con không?
+//     $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+//     $file = $contents
+//         ->where('type', '=', 'file')
+//         ->where('filename', '=', pathinfo($filename, PATHINFO_FILENAME))
+//         ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
+//         ->first(); // có thể bị trùng tên file với nhau!
+//     //return $file; // array with file info
+//     $rawData = Storage::cloud()->get($file['path']);
+//     return response($rawData, 200)
+//         ->header('Content-Type', $file['mimetype'])
+//         ->header('Content-Disposition', "attachment; filename='$filename'");
 // });
 
 

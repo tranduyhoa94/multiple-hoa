@@ -13,7 +13,7 @@
       <v-btn  color="primary" dark class="mb-2" @click="showAdd()">ADD</v-btn>
       <v-btn  color="primary" dark class="mb-2" @click="showCopy()">COPY</v-btn>
   </v-toolbar>
-
+  <add></add>
   <div class="table-content">
    <vuetable ref="vuetable" 
         :fields="userFields" 
@@ -70,11 +70,12 @@ import { get,del } from '../../helpers/index.js'
 import Vuetable from 'vuetable-2/src/components/Vuetable'
 import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
+import Add from './Add.vue'
 export default {
 
   name: 'UserDash',
   components:{
-  	Vuetable,VuetablePagination,VuetablePaginationInfo
+  	Vuetable,VuetablePagination,VuetablePaginationInfo,Add
   },
   data () {
     return {	
@@ -152,6 +153,25 @@ export default {
 	    onChangePage (page) {
 	          this.$refs.vuetable.changePage(page)
 	    },
+      showAdd() {
+        // console.log(this.item)
+        this.status = true
+        let obj = {
+          status: this.status,
+          showDialog: true
+        }
+        this.$root.$emit('change-status', obj)
+        // console.log(this.setLocaleUser)
+      },
+      showCopy(){
+         this.status = false
+        let obj = {
+          status: this.status,
+          showDialog: true
+        }
+        this.$root.$emit('change-status', obj)
+        // console.log(this.item2)
+      },
     }
 }
 </script>

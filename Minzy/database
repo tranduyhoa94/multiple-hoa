@@ -1,0 +1,20 @@
+
+databases eoc_ebay_scraper
+mysql142488-eoc-ebay-scraper.phx.enscaled.us
+DB_PASSWORD=v0rwxoxPDI
+
+
+----- integra 1 ----
+mysql138939-eoc-integra.phx.enscaled.us
+eoc
+eoc.password
+
+----- Scraper ----
+mysql142488-eoc-ebay-scraper.phx.enscaled.us
+root
+v0rwxoxPDI
+
+--integra3---
+node182569-integra-ebay.j.layershift.co.uk
+root
+ALRdxq18833
