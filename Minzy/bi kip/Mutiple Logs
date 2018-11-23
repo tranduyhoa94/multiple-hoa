@@ -1,8 +1,0 @@
-step 1 : file config logging.php add row  
-	'amazon' => [
-            'driver' => 'single',
-            'path' => storage_path('logs/amazon_inventory.log'),
-            'level' => 'debug',
-        ],
-
-step 2 : in controller or jobs wirte code : Log::channel('amazon')->info('im here amazon');
