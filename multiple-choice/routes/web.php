@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/{any}', function () {
-   return view('index');
-})->where(['any' => '.*']);
+// Route::get('/{any}', function () {
+//    return view('index');
+// })->where(['any' => '.*']);
 
-// Route::get('test','LoginController@test');
+Route::get('test','LoginController@test');
 
 // Route::get('program', function(){
 // 	// $googleDisk = \Storage::disk('google');
@@ -65,3 +65,6 @@ Route::get('/{any}', function () {
 //     // Storage::cloud()->delete($file['path']);
 //     return 'File was deleted from Google Drive';
 // });
+
+Route::get('get-upload','TestController@getUpload');
+Route::post('/upload','TestController@upload')->name('upload');
