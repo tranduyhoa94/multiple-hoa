@@ -60,6 +60,7 @@
   import 'material-design-icons-iconfont/dist/material-design-icons.css'
   import SideBar from './partials/Sidebar.vue'
   import Header from './partials/Header.vue'
+  import auth from '../auth/index.js'
 
   Vue.use(Vuetify,{
     iconfont: 'md'

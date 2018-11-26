@@ -11,11 +11,11 @@
 |
 */
 
-// Route::get('/{any}', function () {
-//    return view('index');
-// })->where(['any' => '.*']);
+Route::get('/{any}', function () {
+   return view('index');
+})->where(['any' => '.*']);
 
-Route::get('test','LoginController@test');
+// Route::get('test','LoginController@test');
 
 // Route::get('program', function(){
 // 	// $googleDisk = \Storage::disk('google');
@@ -66,5 +66,19 @@ Route::get('test','LoginController@test');
 //     return 'File was deleted from Google Drive';
 // });
 
-Route::get('get-upload','TestController@getUpload');
-Route::post('/upload','TestController@upload')->name('upload');
+// Router upload image fickr
+// Route::get('get-upload','TestController@getUpload');
+// Route::post('/upload','TestController@upload')->name('upload');
+// // end Router
+
+// // Test send mail
+// Route::get('send-mail',function(){
+
+// 	// dd(env('MAIL_HOST'));
+// 	$data = [
+// 		'name' => 'Hoa Tran' 
+// 	];
+// 	\Mail::to('tranduyhoa94@gmail.com')->send(new \App\Mail\sendEmail($data));  
+// });
+
+// Route::get('send/mail/callback','TestController@confirmMail');

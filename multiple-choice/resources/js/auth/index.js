@@ -24,5 +24,11 @@ export default {
 				this.authenticated = false
 			}
 		});
+	},
+	logout(){
+		localStorage.removeItem('access_token')
+        router.push({
+            name: 'LoginIndex'
+        })
 	}
 }
