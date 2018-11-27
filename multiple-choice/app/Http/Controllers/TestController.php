@@ -51,4 +51,8 @@ class TestController extends Controller
         //     ];
         // }
     }
+
+    public function confirmMail(Request $request) {
+        
+    }
 }
