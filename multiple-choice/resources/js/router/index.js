@@ -19,14 +19,14 @@ routers = [
 		component:Login,
 		children:[
 			{
-				path:'/login',
-				name:'LoginIndex',
-				component:LoginIndex
-			},
-			{
 				path:'/register',
 				name:'Register',
 				component:Register
+			},
+			{
+				path:'/login',
+				name:'LoginIndex',
+				component:LoginIndex
 			}
 		]
 	},

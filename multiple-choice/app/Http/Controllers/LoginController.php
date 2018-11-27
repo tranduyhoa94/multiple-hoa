@@ -16,12 +16,13 @@ class LoginController extends AppBaseController
  	public function login(Request $request) {
 
  		$credentials = $request->only(['email', 'password']);
+
         try{
             if (! $token = auth()->attempt($credentials)) {
-                return $this->sendError('Password incorrect.');
+                return $this->responseError('Password incorrect.');
             }
         } catch (\Exception $e){
-            return $this->sendError('Something error. Please try again!');
+            return $this->responseError('Something error. Please try again!');
         }
         $data = [
             'status' => $token,

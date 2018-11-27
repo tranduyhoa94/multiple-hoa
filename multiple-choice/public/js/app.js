@@ -50762,13 +50762,13 @@ routers = [{
 	name: 'login',
 	component: __WEBPACK_IMPORTED_MODULE_5__components_Login_vue___default.a,
 	children: [{
-		path: '/login',
-		name: 'LoginIndex',
-		component: __WEBPACK_IMPORTED_MODULE_9__components_auths_IndexLogin_vue___default.a
-	}, {
 		path: '/register',
 		name: 'Register',
 		component: __WEBPACK_IMPORTED_MODULE_8__components_auths_register_vue___default.a
+	}, {
+		path: '/login',
+		name: 'LoginIndex',
+		component: __WEBPACK_IMPORTED_MODULE_9__components_auths_IndexLogin_vue___default.a
 	}]
 }, {
 	path: '/',
@@ -72132,11 +72132,11 @@ module.exports = function escape(url) {
 	login: function login(email, pword) {
 		var _this = this;
 
-		axios.post('api/auth/login', {
+		return axios.post('api/auth/login', {
 			email: email,
 			password: pword
 		}).then(function (res) {
-			console.log(res);
+
 			if (res.data && res.data.success) {
 				localStorage.setItem('access_token', res.data.data.user.access_token);
 				localStorage.setItem('first_name', res.data.data.user.first_name);
@@ -72147,8 +72147,10 @@ module.exports = function escape(url) {
 					name: 'Dashboard'
 				});
 			} else {
-				_this.authenticated = false;
+				return res.data.status;
 			}
+		}).catch(function (err) {
+			console.log(err);
 		});
 	},
 	logout: function logout() {
@@ -72156,6 +72158,9 @@ module.exports = function escape(url) {
 		__WEBPACK_IMPORTED_MODULE_0__router_index_js__["a" /* default */].push({
 			name: 'LoginIndex'
 		});
+	},
+	test: function test() {
+		return 'test';
 	}
 });
 
@@ -113166,7 +113171,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -113236,29 +113241,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           return pattern.test(value) || 'Invalid e-mail.';
         }
       }
+
     };
   },
 
   methods: {
     submit: function submit() {
+      var _this = this;
+
+      // var abc =  auth.test()
+      // console.log(abc)
       if (this.$refs.form.validate()) {
-        __WEBPACK_IMPORTED_MODULE_0__auth_index_js__["a" /* default */].login(this.user.email, this.user.password);
-        this.token = localStorage.getItem('access_token');
-        if (this.token) {
-          this.$notify({
-            group: 'foo',
-            title: 'Important message',
-            text: 'Hello user! This is a notification!',
-            type: 'success'
-          });
-        } else {
-          this.$notify({
-            group: 'foo',
-            title: 'Important message',
-            text: 'Something error. Please try again!',
-            type: 'error'
-          });
-        }
+        var data = __WEBPACK_IMPORTED_MODULE_0__auth_index_js__["a" /* default */].login(this.user.email, this.user.password);
+        console.log(data);
+        data.then(function (res) {
+
+          if (res === 500) {
+            _this.$notify({
+              group: 'foo',
+              title: 'Important message',
+              text: 'Something error. Please try again!',
+              type: 'error'
+            });
+            _this.status = '';
+          }
+        });
+
+        // this.token =  localStorage.getItem('access_token')
       }
     },
     test: function test() {

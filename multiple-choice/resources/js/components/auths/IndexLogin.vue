@@ -53,29 +53,33 @@ export default {
 	            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 	            return pattern.test(value) || 'Invalid e-mail.'
 	          }
-	        }
+	        },
+ 
 	    }
 	},
 	methods:{
   	submit(){
+
+      // var abc =  auth.test()
+      // console.log(abc)
   		if (this.$refs.form.validate()) {
-  			auth.login(this.user.email,this.user.password)
-        this.token =  localStorage.getItem('access_token')
-        if(this.token) {
-          this.$notify({
-            group: 'foo',
-            title: 'Important message',
-            text: 'Hello user! This is a notification!',
-            type : 'success'
-           });
-        } else {
-            this.$notify({
-            group: 'foo',
-            title: 'Important message',
-            text: 'Something error. Please try again!',
-            type : 'error'
-          });
-        }
+  			var data = auth.login(this.user.email,this.user.password)
+          console.log(data)
+          data.then(res => {
+            
+             if(res === 500) {
+                this.$notify({
+                  group: 'foo',
+                  title: 'Important message',
+                  text: 'Something error. Please try again!',
+                  type : 'error'
+                });
+                this.status = ''
+              } 
+          })
+     
+        // this.token =  localStorage.getItem('access_token')
+
   		}		
   	},
     	test(){

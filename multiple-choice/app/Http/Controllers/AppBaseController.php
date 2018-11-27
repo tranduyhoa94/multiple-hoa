@@ -27,4 +27,21 @@ class AppBaseController extends Controller
     {
         return Response::json(ResponseUtil::makeError($error), $code);
     }
+
+     /**
+     * Response error
+     * @param  string  $message
+     * @param  array  $errors
+     * @param  integer $status
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function responseError($message = null, $errors = null, $status = 500)
+    {
+        return \Response::json([
+            'success' => false,
+            'status' => $status,
+            'message' => $message,
+            'data' => $errors
+        ]);
+    }
 }
