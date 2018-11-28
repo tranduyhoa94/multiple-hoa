@@ -35,4 +35,14 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'google' => [
+        'client_id' => env('MIX_GOOGLE_CLIENT_ID'),
+        'client_secret' => env('MIX_GOOGLE_CLIENT_SECRET'),
+    ],
+    
+    'facebook' => [
+        'client_id' => env('MIX_FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('MIX_FACEBOOK_CLIENT_SECRET'),
+    ],
+
 ];

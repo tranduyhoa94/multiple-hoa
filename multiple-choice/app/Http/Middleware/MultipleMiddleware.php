@@ -21,13 +21,14 @@ class MultipleMiddleware
     public function handle($request, Closure $next)
     {
         try {
-            $token = \Request::header('Authorization');
+            // $token = \Request::header('Authorization');
 
-            $tokenHeader = explode('Bearer ' ,$token);
+            // $tokenHeader = explode('Bearer ' ,$token);
 
-            $jwtToken = $tokenHeader[1];
+            // $jwtToken = $tokenHeader[1];
+              $jwtToken = \Request::header('Authorization');
 
-            if(!$token){
+            if(!$jwtToken){
                 return \Response::json([
                     'success' => false,
                     'status' => 401,

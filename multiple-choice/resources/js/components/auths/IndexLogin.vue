@@ -6,6 +6,7 @@
       </v-toolbar>
       <v-card>
         <v-card-text class="pt-4">
+        <social-login></social-login>
           <div>
               <v-form ref="form" @submit.prevent="submit()">
                 <v-text-field
@@ -37,6 +38,8 @@
 
 <script>
 import auth from '../../auth/index.js'
+import SocialLogin from './SocialLogin'
+
 export default {
 
   name: 'IndexLogin',
@@ -90,7 +93,10 @@ export default {
       //   type : 'error'
       // });
   	}
-  }
+  },
+   components:{
+    SocialLogin
+  },
 }
 </script>
 

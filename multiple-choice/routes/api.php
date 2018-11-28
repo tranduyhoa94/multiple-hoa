@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('auth/login', 'LoginController@login');
 
-Route::group(['namespace' => 'API'],function(){
+Route::group(['namespace' => 'API','middleware'=>'mutichoice'],function(){
 	
 	Route::resource('users', 'UserAPIController');
 
@@ -34,5 +34,17 @@ Route::group(['namespace' => 'API'],function(){
 	Route::resource('products', 'ProductAPIController');
 
 	Route::post('upload/image','ProductAPIController@uploadImage');
+	
+
 });
+
+Route::group(['namespace' => 'API\Auth'],function(){
+
+	Route::post('oauth/{driver}', 'OAuthController@redirectToProvider');
+
+	Route::get('oauth/{driver}/callback', 'OAuthController@handleProviderCallback')->name('oauth.callback');
+
+});
+
+
 

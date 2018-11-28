@@ -309,6 +309,7 @@ export default {
   		
   		loadData(){
             // this.$root.$emit('show', true)
+
             let url = config.API_URL + 'program'
 
             let params = {
@@ -322,7 +323,7 @@ export default {
                 params: params
             })
             .then(response => {
-                // console.log(response.data);
+            
                 this.$root.$emit('show', false)
 
                 if(response && response.data.success){
@@ -345,6 +346,11 @@ export default {
                     this.paginator.from = response.data.data.from
                     this.paginator.to = response.data.data.to
                     this.paginator.total = response.data.data.total
+                } else {
+                   if(response.data.status == 401 || response.data.status == 408 || response.data.status == 500){
+                        localStorage.removeItem('access_token')
+                        this.$router.push('/login');
+                   }
                 }
             })
             .catch(e => {
