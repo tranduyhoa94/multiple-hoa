@@ -40,7 +40,7 @@ Vue.use(VueRouter)
 var access_token = localStorage.getItem('access_token')
 
 axios.defaults.baseURL = config.BASE_URL;
-axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
+axios.defaults.headers.common['Authorization'] = access_token;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 // var router = new VueRouter({

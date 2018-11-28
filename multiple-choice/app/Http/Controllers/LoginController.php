@@ -14,7 +14,6 @@ class LoginController extends AppBaseController
     }
 
  	public function login(Request $request) {
-
  		$credentials = $request->only(['email', 'password']);
 
         try{
@@ -93,14 +92,10 @@ class LoginController extends AppBaseController
     public function checkLogin(Request $request) {
 
         $jwtToken = \Request::header('Authorization');
-        
-        $tokenHeader = explode('Bearer ' ,$jwtToken);
-
-        $token = $tokenHeader[1];
 
         if($jwtToken) {
 
-            $user = User::where('access_token', $token)->first();
+            $user = User::where('access_token', $jwtToken)->first();
             
             if(!$user)
                 return \Response::json(['success' => true]);

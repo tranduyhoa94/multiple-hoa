@@ -30,7 +30,8 @@ class User extends Authenticatable
         'password',
         'access_token',
         'address',
-        'shipping'
+        'shipping',
+        'provider'
     ];
 
     /**
@@ -45,7 +46,8 @@ class User extends Authenticatable
         'password' => 'string',
         'access_token' => 'string',
         'address' => 'string',
-        'shipping' => 'string'
+        'shipping' => 'string',
+        'provider' => 'string'
     ];
 
     /**

@@ -26,6 +26,8 @@
         pagination-path="data"
         :append-params="moreParams"
         @vuetable:pagination-data="onPaginationData"
+        @vuetable:load-error="handleLoadError"
+        @vuetable:load-success="handleLoadSuccess"
     >
       <template slot="actions" slot-scope="props">        
         <v-icon
@@ -86,7 +88,7 @@ export default {
           
           httpOptions: {
                 headers: {
-                    'Authorization': "Bearer " + localStorage.getItem('access_token'),
+                    'Authorization': localStorage.getItem('access_token'),
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
           },
@@ -172,6 +174,16 @@ export default {
         this.$root.$emit('change-status', obj)
         // console.log(this.item2)
       },
+      handleLoadError(response){
+        console.log(response)
+      },
+      handleLoadSuccess(response){
+        console.log(response.data)
+        if(response.data.status == 401 || response.data.status == 408 || response.data.status == 500) {
+            localStorage.removeItem('access_token')
+            this.$router.push('/login');
+        }
+      }
     }
 }
 </script>
