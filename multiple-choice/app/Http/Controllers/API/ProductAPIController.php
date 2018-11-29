@@ -57,6 +57,7 @@ class ProductAPIController extends AppBaseController
      */
     public function store(CreateProductAPIRequest $request)
     {
+        
         $input = $request->all();
         // dd($input);
         $file = $request->image;

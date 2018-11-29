@@ -63,6 +63,17 @@ import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 import { quillEditor } from 'vue-quill-editor';
+
+import Quill from 'quill'
+
+import { ImageDrop } from 'quill-image-drop-module'
+
+window.Quill = Quill
+
+
+
+Quill.register('modules/imageDrop', ImageDrop)
+
 // import Quill from 'quill';
 // import { ImageResize } from 'quill-image-resize-module';
 
@@ -109,8 +120,8 @@ export default {
             handlers: {
               image: this.imageHandler
             }
-           }
-            // imageResize: true,
+           },
+            imageResize: true,
           }
         },
         rules: {
