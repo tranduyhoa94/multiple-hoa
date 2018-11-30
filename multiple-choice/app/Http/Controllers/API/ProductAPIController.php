@@ -151,8 +151,9 @@ class ProductAPIController extends AppBaseController
 
     public function uploadImage(Request $request){
 
-        $file = $request->image;
-            
+            $file = $request->image;
+    
+
             if(!empty($file)) {
 
              $filename = time().'.'.$file->getClientOriginalExtension();
@@ -167,34 +168,69 @@ class ProductAPIController extends AppBaseController
             }
 
             $file->move($pathPublic, $filename);
+
+            $dir = '/';
+            $recursive = false; // Get subdirectories also?
+            $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+            $dir = $contents->where('type', '=', 'dir')
+                ->where('filename', '=', $request->path)
+                ->first(); // There could be duplicate directory names!
+            if ( ! $dir) {
+                return 'Directory does not exist!';
+            }
+
+
             $fileData = File::get($pathPublic.$filename);
-            Storage::cloud()->put($filename, $fileData);
+            Storage::cloud()->put($dir['path'].'/'.$filename, $fileData);
             // return 'File was saved to Google Drive';
             unlink($pathPublic.$filename);
 
-            $file_name = $this->callbackUrl($filename);
+            $file_name = $this->callbackUrl($request->path,$filename);
+            
+            $data = explode('/', $file_name['path']);
 
             return \Response::json([
                         'status' => true,
-                        'link' =>  'https://drive.google.com/uc?id='.$file_name['path'],
+                        'link' =>  'https://drive.google.com/uc?id='.$data[1],
                     ]);
         }
     }
 
-    public function callbackUrl($file_name){
+    public function callbackUrl($file_folder,$file_name){
 
         // $filename = '1542594268.png';
         // Tìm file và sử dụng ID (path) của nó để xóa
-        $dir = '/';
-        $recursive = false; //  Có lấy file trong các thư mục con không?
-        $contents = collect(Storage::cloud()->listContents($dir, $recursive));
-        $file = $contents
+
+        $folder = $file_folder;
+        // Get root directory contents...
+        $contents = collect(Storage::cloud()->listContents('/', false));
+        // Find the folder you are looking for...
+        $dir = $contents->where('type', '=', 'dir')
+            ->where('filename', '=', $folder)
+            ->first(); // There could be duplicate directory names!
+        if ( ! $dir) {
+            return 'No such folder!';
+        }
+        // Get the files inside the folder...
+        $files = collect(Storage::cloud()->listContents($dir['path'], false))
             ->where('type', '=', 'file')
             ->where('filename', '=', pathinfo($file_name, PATHINFO_FILENAME))
             ->where('extension', '=', pathinfo($file_name, PATHINFO_EXTENSION))
             ->first(); // có thể bị trùng tên file với nhau!
+
+        return $files;
+
+
+        // $dir = '/';
+        // $recursive = false; //  Có lấy file trong các thư mục con không?
+        // $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+        // $file = $contents
+        //     ->where('type', '=', 'file')
+        //     ->where('filename', '=', pathinfo($file_name, PATHINFO_FILENAME))
+        //     ->where('extension', '=', pathinfo($file_name, PATHINFO_EXTENSION))
+        //     ->first(); // có thể bị trùng tên file với nhau!
         
-        return $file;
+        // return $file;
 
     }
 }

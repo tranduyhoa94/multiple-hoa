@@ -27,12 +27,14 @@ Route::get('/{any}', function () {
 //     // $fileData = File::get($filePath);
 //     // Storage::cloud()->put('image', $fileData);
 //     // // return 'File was saved to Google Drive';
-//     //   $dir = '/';
-//     // $recursive = false; // Có lấy file trong các thư mục con không?
-//     // $contents = collect(Storage::cloud()->listContents($dir, $recursive));
-//     // $reslut =  $contents->where('type', '=', 'file');
-//     // dd($reslut);
-
+    //   $dir = '/';
+    // $recursive = false; // Có lấy file trong các thư mục con không?
+    // $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+    // $reslut =  $contents->where('type', '=', 'dir');
+    // dd($reslut);
+//     $newFolder = Storage::cloud()->makeDirectory('Test Dir');
+// // printf("Folder ID: %s\n", $file->id);
+// dd($newFolder);
 //     $filename = 'image';
 //     $dir = '/';
 //     $recursive = false; // Có lấy file trong các thư mục con không?
