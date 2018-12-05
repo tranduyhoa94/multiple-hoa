@@ -5,12 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Auth;
+use \App\Models\User;
+use App\Repositories\UserRepository;
+use Illuminate\Auth\Events\Registered;
 
 class LoginController extends AppBaseController
 {
+    /** @var  UserRepository */
+    private $userRepository;
 
-    public function __construct(){
+    public function __construct(UserRepository $userRepo){
+
         include_once(app_path().'/Libraries/includes/ChipVN/ClassLoader/Loader.php');
+       
+        $this->userRepository = $userRepo;
+    
     }
 
  	public function login(Request $request) {
@@ -126,5 +135,36 @@ class LoginController extends AppBaseController
   // "user_nsid" => "143591056@N04"
         dd($token); 
 
+    }
+
+    public function registerUser(Request $request) {
+
+        $requestData = $request->all();
+        $requestData['password'] = bcrypt($requestData['password']);
+       
+        try{
+
+            $isExitsEmail = $this->userRepository->skipPresenter()->findWhere(['email' => $requestData['email']])->all();
+            if(count($isExitsEmail) > 0){
+                return $this->responseError('This email is existed in the system.');
+            };
+
+            $user = $this->userRepository->create([
+                                'first_name' => $requestData['firstname'],
+                                'last_name' => $requestData['lastname'],
+                                'email' => $requestData['email'],
+                                'password' => $requestData['password']
+                            ]);
+
+            if (!empty($user)) {
+                event(new Registered($user));
+            }
+            return $this->sendResponse($user->toArray(), 'User saved successfully');
+
+        } catch (\Exception $e){
+            return $this->responseError('An unexpected error occurred. Please try again...', [
+                'error' => $e->getMessage(),
+            ]);
+        } 
     }
 }

@@ -24,10 +24,13 @@
                   prepend-icon="lock"
                   :rules="[rules.required]"
                 ></v-text-field>
-                <v-layout justify-space-between>
-                    <v-btn type="submit">Login</v-btn>
-                    <a href="#" @click="test()">Forgot Password</a>
+                 <v-layout justify-space-between>
+                    <a href="#" @click="test()">Forgot Password ?</a>
+                   
+                    <router-link to="/register">Sign Up</router-link>
                 </v-layout>
+                 <v-btn block dark color="#1ab394" class="font-weight-bold pl-5 pr-5" type="submit">Login</v-btn>
+               
               </v-form>
               <notifications group="foo" />
           </div>

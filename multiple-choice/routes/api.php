@@ -19,6 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('auth/login', 'LoginController@login');
 
+Route::post('register', 'LoginController@registerUser');
+
 Route::group(['namespace' => 'API','middleware'=>'mutichoice'],function(){
 	
 	Route::resource('users', 'UserAPIController');
