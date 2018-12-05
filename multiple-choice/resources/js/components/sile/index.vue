@@ -53,6 +53,71 @@
       {{ snackText }}
       <v-btn flat @click="snack = false">Close</v-btn>
     </v-snackbar>
+
+    <!-- v-dialog -->
+    <v-dialog
+      v-model="dialog"
+      max-width="400"
+    >
+      <v-card>
+        <v-card-title class="headline">
+        <v-btn-toggle>
+          <v-btn flat class="button-style" @click="openDialog2">
+            <v-icon class="style-icon">folder</v-icon>
+            &nbsp; Add Folder
+          </v-btn>
+      </v-btn-toggle>
+      </v-card-title>
+
+        <v-card-text>
+            <v-radio-group v-model="radios">
+              <div slot="label">Select Folder <strong>save image</strong></div>
+              <div v-for="folder in folders">
+              <v-radio v-bind:value="folder.filename">
+                <div slot="label"><v-icon class="style-icon">folder</v-icon> <strong class="success--text">{{folder.filename}}</strong></div>
+              </v-radio>
+              </div>
+            </v-radio-group>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="choose()"
+          >
+            Disagree
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="dialog = false"
+          >
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- v-dialog 2 -->
+        <v-dialog v-model="dialog3" max-width="400px">
+        <v-card>
+          <v-card-title>
+            <span class="style_span">Folder Name: </span>
+            <v-flex xs12 sm6 md3>
+            <input type="text" name="folder_name" class="form-control" v-model="folder_name">
+        </v-flex>
+            <v-spacer></v-spacer>
+          </v-card-title>
+          <v-card-actions>
+           <v-spacer></v-spacer>
+            <v-btn color="primary" flat @click="createFolder()">Create</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
 	</div>
 </template>
 
@@ -63,6 +128,17 @@ import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 import { quillEditor } from 'vue-quill-editor';
+
+import Quill from 'quill'
+
+import { ImageDrop } from 'quill-image-drop-module'
+
+window.Quill = Quill
+
+
+
+Quill.register('modules/imageDrop', ImageDrop)
+
 // import Quill from 'quill';
 // import { ImageResize } from 'quill-image-resize-module';
 
@@ -109,8 +185,8 @@ export default {
             handlers: {
               image: this.imageHandler
             }
-           }
-            // imageResize: true,
+           },
+            imageResize: true,
           }
         },
         rules: {
@@ -118,12 +194,19 @@ export default {
         },
         snack: false,
         snackColor: '',
-        snackText: ''
+        snackText: '',
+        dialog: false,
+        dialog3:false,
+        folder_name:'',
+        folders:{},
+        radios:''
     }
   },
   created(){
     // this.isLoading = true
     this.fetchData()
+    this.getFolderGoogle()
+
   },
   components: {
         // Loading
@@ -176,7 +259,89 @@ export default {
         })
     },
     imageHandler(){
-      const input = document.createElement('input');
+        this.dialog = true
+      // const input = document.createElement('input');
+      // // const newWindow = openWindow('', 'login')
+      // input.setAttribute('type', 'file');
+      // input.click();
+
+      // input.onchange = () => {
+      //   const file = input.files[0];
+
+      //   // file type is only image.
+      //   if (/^image\//.test(file.type)) {
+      //     this.saveToServer(file);
+      //   } else {
+      //     console.warn('You could only upload images.')
+      //   }
+      // }
+    },
+    saveToServer(e){
+      this.$root.$emit('show', true)
+      let formData = new FormData();
+            formData.append('image', e)
+            formData.append('path', this.radios)
+            ///upload/image
+      post(config.API_URL+'upload/image',formData)
+       .then((res) => {
+              if(res.data){
+                  const url = res.data.link
+                  this.insertToEditor(url)
+                  this.$root.$emit('show', false)
+              }
+            })
+          .catch((err) => {
+                  console.log(err)
+                })   
+
+    },
+
+    insertToEditor(url) {
+      // console.log(url)
+      const range = this.$refs.myEditor.quill.getSelection()
+      // console.log(range)
+      this.$refs.myEditor.quill.insertEmbed(range.index, 'image', `${url}`);
+      this.dialog = false
+    },
+
+    openDialog2(){
+      this.dialog3 = true
+    },
+
+    createFolder(){
+      let url = config.API_URL+'create-folder?folder_name='+this.folder_name
+      get(url)
+      .then((res) =>{
+          // console.log(res)
+          if(res.data.success){
+            this.snack = true
+            this.snackColor = 'success'
+            this.snackText = 'Create Folder success'
+            this.getFolderGoogle()
+          }
+      })
+      .catch((err) => {
+          console.log(err)
+      })
+    },
+
+    getFolderGoogle() {
+
+        let url = config.API_URL+'get-folder'
+        get(url)
+        .then((res) => {
+          // console.log(res)
+          this.folders = res.data.data
+          console.log(this.folders)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+
+    choose(){
+       const input = document.createElement('input');
+      // const newWindow = openWindow('', 'login')
       input.setAttribute('type', 'file');
       input.click();
 
@@ -186,40 +351,26 @@ export default {
         // file type is only image.
         if (/^image\//.test(file.type)) {
           this.saveToServer(file);
+          console.log(file)
         } else {
           console.warn('You could only upload images.')
         }
       }
-    },
-    saveToServer(e){
-      let formData = new FormData();
-            formData.append('image', e)
-            ///upload/image
-      post(config.API_URL+'upload/image',formData)
-       .then((res) => {
-        // console.log(res)
-                  if(res.data){
-                    // console.log(res.data.link)
-                      // this.loading = false
-                      const url = res.data.link;
-                      this.insertToEditor(url);
-                  }
-                })
-          .catch((err) => {
-                  console.log(err)
-                })   
-
-    },
-    insertToEditor(url) {
-      // console.log(url)
-      const range = this.$refs.myEditor.quill.getSelection()
-      // console.log(range)
-      this.$refs.myEditor.quill.insertEmbed(range.index, 'image', `${url}`);
     }
     
   }
 }
+
 </script>
 
 <style lang="css" scoped>
+.button-style {
+  opacity: 1
+}
+.style-icon {
+  color: pink !important
+}
+.style_span{
+  margin-right: 10px;
+}
 </style>

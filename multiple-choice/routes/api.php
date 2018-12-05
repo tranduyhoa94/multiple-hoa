@@ -46,6 +46,10 @@ Route::group(['namespace' => 'API\Auth'],function(){
 
 	Route::get('oauth/{driver}/callback', 'OAuthController@handleProviderCallback')->name('oauth.callback');
 
+	Route::get('create-folder', 'PhotoController@createFolder');
+
+	Route::get('get-folder', 'PhotoController@getListFolder');
+
 });
 
 

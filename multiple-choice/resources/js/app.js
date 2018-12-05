@@ -20,6 +20,11 @@ import Vuetify from 'vuetify'
 import VueEvents from 'vue-events'
 import Lodash from 'lodash'
 import VueDragscroll from 'vue-dragscroll'
+import Quill from 'quill' 
+import ImageResize from 'quill-image-resize-module' 
+
+Quill.register('modules/imageResize', ImageResize)
+
 Vue.use(VueDragscroll)
 
 Vue.use(Lodash)
